@@ -1,0 +1,26 @@
+@import "../../styles/abstract/mixins.scss";
+@import "../../styles/abstract/variables.scss";
+
+.nav {
+    width: 100vw;
+
+    border-bottom: 1px solid red;
+
+    display: flex;
+    justify-content: center;
+
+    p {
+        display: grid;
+        place-items: center;
+
+        height: 6.4rem;
+
+        padding: 0 2rem;
+
+        margin-right: 2rem;
+
+        &:last-of-type {
+            margin-right: 0;
+        }
+    }
+}

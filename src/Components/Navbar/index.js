@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import { navLinks } from "../../utils/navlinks";
 
+import styles from "./navbar.module.scss";
+
 export function Navbar() {
     return (
-        <nav>
+        <nav className={styles.nav}>
             <p>
                 <Link to={navLinks.home}>Home</Link>
             </p>
