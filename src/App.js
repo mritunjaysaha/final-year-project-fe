@@ -21,7 +21,7 @@ if (window.localStorage.jwtToken) {
 
     store.dispatch(setAuth(decoded));
 
-    const currentTime = Date.mow() / 1000;
+    const currentTime = Date.now() / 1000;
 
     if (decoded.exp < currentTime) {
     }
@@ -31,8 +31,8 @@ function App() {
     return (
         <>
             <BrowserRouter>
-                <LandingPage />
                 <Navbar />
+                <LandingPage />
 
                 <Switch>
                     {/* TODO: Exam Route [Protected route] */}
