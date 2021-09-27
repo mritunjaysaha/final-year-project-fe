@@ -1,0 +1,24 @@
+@import "../../styles/abstract/mixins.scss";
+@import "../../styles/abstract/variables.scss";
+
+.landingPageSection {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    margin-top: 18rem;
+    justify-content: center;
+}
+
+.landingPageFormContainer {
+    background-color: $veryLightGrey;
+
+    width: 36rem;
+    height: max-content;
+
+    padding: 4rem;
+
+    border-radius: $border-radius-08;
+
+    border: 0.1rem solid $lightGrey1;
+}

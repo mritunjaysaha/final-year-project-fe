@@ -3,6 +3,8 @@ import axios from "axios";
 import { Form } from "../Forms";
 import { FormInput } from "../Forms/formInput";
 
+import styles from "./landingPage.module.scss";
+
 export function LandingPage() {
     const initialValues = {
         email: "teacher@test.com",
@@ -10,8 +12,6 @@ export function LandingPage() {
     };
 
     async function handleSubmit(form) {
-        console.log(form);
-
         await axios
             .post(`/api/login`, form)
             .then((res) => {
@@ -23,9 +23,17 @@ export function LandingPage() {
     }
 
     return (
-        <Form submit={handleSubmit} initialValues={initialValues}>
-            <FormInput name="email" type="email" label="E-mail" />
-            <FormInput name="password" type="password" label="Password" />
-        </Form>
+        <section className={styles.landingPageSection}>
+            <div className={styles.landingPageFormContainer}>
+                <Form submit={handleSubmit} initialValues={initialValues}>
+                    <FormInput name="email" type="email" label="E-mail" />
+                    <FormInput
+                        name="password"
+                        type="password"
+                        label="Password"
+                    />
+                </Form>
+            </div>
+        </section>
     );
 }
