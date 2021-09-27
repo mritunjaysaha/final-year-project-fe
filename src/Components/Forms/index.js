@@ -1,8 +1,14 @@
 import { useState, createContext } from "react";
-import { Button } from "../atoms/button";
 
 export const FormContext = createContext({ form: {} });
 
+/**
+ *
+ * @param {children} children
+ * @param {submit} submit function to submit the form and send api request
+ * @param {Object} initialValues
+ * @returns
+ */
 export function Form(props) {
     const { children, submit = () => {}, initialValues } = props;
 
@@ -18,14 +24,10 @@ export function Form(props) {
     };
 
     return (
-        <form>
+        <form onSubmit={(e) => submit(e, form)}>
             <FormContext.Provider value={{ form, handleFormChange }}>
                 {children}
             </FormContext.Provider>
-
-            <Button fullWidth={true} type="button" onClick={() => submit(form)}>
-                Submit
-            </Button>
         </form>
     );
 }
