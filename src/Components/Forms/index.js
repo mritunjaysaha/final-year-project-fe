@@ -1,4 +1,5 @@
 import { useState, createContext } from "react";
+import { Button } from "../atoms/button";
 
 export const FormContext = createContext({ form: {} });
 
@@ -22,9 +23,9 @@ export function Form(props) {
                 {children}
             </FormContext.Provider>
 
-            <button type="button" onClick={() => submit(form)}>
+            <Button fullWidth={true} type="button" onClick={() => submit(form)}>
                 Submit
-            </button>
+            </Button>
         </form>
     );
 }
