@@ -26,12 +26,14 @@ export function LandingPage() {
         <section className={styles.landingPageSection}>
             <div className={styles.landingPageFormContainer}>
                 <Form submit={handleSubmit} initialValues={initialValues}>
-                    <FormInput name="email" type="email" label="E-mail" />
-                    <FormInput
-                        name="password"
-                        type="password"
-                        label="Password"
-                    />
+                    <div className={styles.inputContainer}>
+                        <FormInput name="email" type="email" label="E-mail" />
+                        <FormInput
+                            name="password"
+                            type="password"
+                            label="Password"
+                        />
+                    </div>
                 </Form>
             </div>
         </section>
