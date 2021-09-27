@@ -1,0 +1,20 @@
+@import "../../styles/imports.scss";
+
+.button {
+    background: $grey;
+
+    padding: 1.6rem 0;
+    width: 16rem;
+
+    color: $text-color-beta;
+    font-weight: $fw-bold;
+    font-size: $fs14;
+
+    border-radius: $border-radius-12;
+
+    transition: all 0.2s linear;
+
+    &:hover {
+        opacity: 0.9;
+    }
+}
