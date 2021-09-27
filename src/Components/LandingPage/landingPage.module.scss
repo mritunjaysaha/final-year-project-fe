@@ -2,12 +2,11 @@
 @import "../../styles/abstract/variables.scss";
 
 .landingPageSection {
+    display: flex;
+    justify-content: center;
+
     width: 100vw;
     height: 100vh;
-
-    display: flex;
-    margin-top: 18rem;
-    justify-content: center;
 }
 
 .landingPageFormContainer {
@@ -21,20 +20,17 @@
     height: max-content;
 
     padding: 2rem 4rem;
+    margin-top: 18rem;
 
     border-radius: $border-radius-08;
 
     border: 0.1rem solid $border-color-alpha;
 
     .inputContainer {
-        margin-bottom: 1.8rem;
+        margin-bottom: 1.2rem;
 
         input {
             margin-bottom: 1.2rem;
-
-            &:last-of-type {
-                margin-bottom: 0;
-            }
         }
     }
 }
