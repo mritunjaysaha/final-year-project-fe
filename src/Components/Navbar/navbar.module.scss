@@ -2,12 +2,14 @@
 @import "../../styles/abstract/variables.scss";
 
 .nav {
-    width: 100vw;
+    background-color: $veryLightGrey;
 
-    border-bottom: 1px solid red;
+    width: 100vw;
 
     display: flex;
     justify-content: center;
+
+    border-bottom: 1px solid $border-color-alpha;
 
     p {
         display: grid;
