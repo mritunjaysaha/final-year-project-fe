@@ -7,8 +7,8 @@ import styles from "./landingPage.module.scss";
 
 export function LandingPage() {
     const initialValues = {
-        email: "",
-        password: "",
+        email: "teacher@test.com",
+        password: "123456",
     };
 
     async function handleSubmit(e, form) {
@@ -18,7 +18,8 @@ export function LandingPage() {
         await axios
             .post(`/api/login`, form)
             .then((res) => {
-                console.log(res.data);
+                console.log("res", res.data);
+                window.localStorage.setItem("jwtToken", res.data.token);
             })
             .catch((err) => {
                 console.error(err.message);
