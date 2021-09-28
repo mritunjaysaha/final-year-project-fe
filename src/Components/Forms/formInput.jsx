@@ -5,8 +5,6 @@ import { FormContext } from "./index";
 export function FormInput(props) {
     const { label, type = "text", name, ...rest } = props;
 
-    console.log("props", props);
-
     const formContext = useContext(FormContext);
     const { form, handleFormChange } = formContext;
 
@@ -16,7 +14,7 @@ export function FormInput(props) {
             fullWidth
             type={type}
             name={name}
-            label={name}
+            label={label}
             value={form[name]}
             onChange={handleFormChange}
             {...rest}

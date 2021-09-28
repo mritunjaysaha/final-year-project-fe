@@ -1,51 +1,57 @@
+import axios from "axios";
+
 import { Form } from "../Forms";
 import { FormInput } from "../Forms/formInput";
 import { Button } from "../atoms/button";
-import { TextField } from "@mui/material";
+
 import styles from "./createExamForm.module.scss";
 
 export function ExamForm() {
     const initialValues = {
-        name: "",
-        course: "",
-        time_limit: "",
-        total_marks: "",
+        name: "Demo Exam",
+        course: "614cc5c9456a3d4d0c3a9189",
+        course_coordinator: "614cc588456a3d4d0c3a9185",
+        time_limit: "3 hours",
+        total_marks: "80",
     };
 
     async function handleSubmit(e, form) {
         e.preventDefault();
+        console.log(form);
 
-        console.log("exam", form);
+        console.log(axios.defaults);
+        await axios
+            .post(`/api/exam/614cc588456a3d4d0c3a9185`, form)
+            .then((res) => {
+                console.log({ res });
+            })
+            .catch((err) => {
+                console.log({ err });
+            });
     }
 
     return (
         <section className={styles.examFormSection}>
             <Form initialValues={initialValues} submit={handleSubmit}>
                 <div className={styles.input}>
-                    <FormInput
-                        fullWidth
-                        variant="outlined"
-                        label="outlined"
-                        name="Title"
-                    />
-                    <TextField fullWidth variant="outlined" label="outlined" />
+                    <FormInput name="name" label="Title" />
                 </div>
                 {/* make it a dropdown menu */}
-                {/* <div className={styles.input}>
-                    <FormInput name="course" placeholder="Course" />
+                <div className={styles.input}>
+                    <FormInput name="course" label="Course" />
                 </div>
                 <div className={styles.inputContainerFlex2}>
                     <div className={styles.input}>
-                        <FormInput name="time_limit" placeholder="Duration" />
+                        <FormInput name="time_limit" label="Duration" />
                     </div>
                     <div className={styles.input}>
                         <FormInput
                             type="number"
                             name="total_marks"
-                            placeholder="Total Marks"
+                            label="Total Marks"
                         />
-                    </div>{" "}
-                </div> */}
+                    </div>
+                </div>
                 <div>
                     <Button>Submit</Button>
                 </div>

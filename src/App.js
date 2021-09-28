@@ -5,6 +5,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { store } from "./app/store";
 import { setAuth } from "./reducers/Auth/authSlice";
 
+import { setAuthToken } from "./utils/setAuthToken";
+
 import { LandingPage } from "./Components/LandingPage";
 import { Navbar } from "./Components/Navbar";
 import { Exam } from "./Components/Exam";
@@ -17,8 +19,7 @@ if (window.localStorage.jwtToken) {
     const token = localStorage.getItem("jwtToken");
     const decoded = jwt_decode(token);
 
-    console.log({ token, decoded });
-
+    setAuthToken(token);
     store.dispatch(setAuth(decoded));
 
     const currentTime = Date.now() / 1000;
