@@ -7,8 +7,8 @@ import styles from "./landingPage.module.scss";
 
 export function LandingPage() {
     const initialValues = {
-        email: "teacher@test.com",
-        password: "123456",
+        email: "",
+        password: "",
     };
 
     async function handleSubmit(e, form) {
@@ -38,15 +38,19 @@ export function LandingPage() {
                             name="email"
                             type="email"
                             label="E-mail"
+                            placeholder="E-mail"
                             aria-label="email-input"
                             aria-required="true"
+                            role="textbox"
                         />
                         <FormInput
                             name="password"
                             type="password"
                             label="Password"
+                            placeholder="Password"
                             aria-label="password-input"
                             aria-required="true"
+                            role="textbox"
                         />
                     </div>
 

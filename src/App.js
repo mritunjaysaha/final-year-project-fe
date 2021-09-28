@@ -32,9 +32,9 @@ function App() {
         <>
             <BrowserRouter>
                 <Navbar />
-                <LandingPage />
 
                 <Switch>
+                    <Route exact path={navLinks.home} component={LandingPage} />
                     {/* TODO: Exam Route [Protected route] */}
                     <Route exact path={navLinks.exam} component={Exam} />
                 </Switch>

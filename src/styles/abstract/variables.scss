@@ -20,7 +20,12 @@ $border-color-alpha: $lightGrey1;
 $border-radius-04: 0.4rem;
 $border-radius-08: 0.8rem;
 $border-radius-12: 1.2rem;
-$border-radius-15: 1.5rem;
+$border-radius-16: 1.6rem;
+
+$border-radius-small: $border-radius-04;
+$border-radius-alpha: $border-radius-08;
+$border-color-beta: $border-radius-12;
+$border-color-gamma: $border-radius-16;
 
 // font family
 $ffKarla: "Karla", sans-serif;
