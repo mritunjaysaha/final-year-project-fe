@@ -28,11 +28,7 @@ export function LandingPage() {
     return (
         <section className={styles.landingPageSection}>
             <div className={styles.landingPageFormContainer}>
-                <Form
-                    submit={handleSubmit}
-                    submitButtonText="Log In"
-                    initialValues={initialValues}
-                >
+                <Form submit={handleSubmit} initialValues={initialValues}>
                     <div className={styles.inputContainer}>
                         <FormInput
                             name="email"
