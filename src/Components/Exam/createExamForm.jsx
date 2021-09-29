@@ -15,14 +15,13 @@ export function ExamForm() {
         total_marks: "80",
     };
 
+    const userId = "614cc588456a3d4d0c3a9185";
+
     async function handleSubmit(e, form) {
         e.preventDefault();
 
         await axios
-            .post(
-                `http://localhost:9000/api/exam/614cc588456a3d4d0c3a9185`,
-                form
-            )
+            .post(`/api/exam/${userId}`, form)
             .then((res) => {
                 console.log({ res });
             })
