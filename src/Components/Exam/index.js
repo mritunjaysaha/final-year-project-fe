@@ -17,7 +17,8 @@ export function Exam() {
                 Create Exam
             </Button>
 
-            {isCreateExamClicked ? <ExamForm /> : ""}
+            {/* {isCreateExamClicked ? <ExamForm /> : ""} */}
+            <ExamForm />
         </section>
     );
 }

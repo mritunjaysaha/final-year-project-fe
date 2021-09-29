@@ -3,6 +3,7 @@ import axios from "axios";
 import { Form } from "../Forms";
 import { FormInput } from "../Forms/formInput";
 import { Button } from "../atoms/button";
+import { MUIDateAndTimePicker } from "../DateAndTime";
 
 import styles from "./createExamForm.module.scss";
 
@@ -33,28 +34,31 @@ export function ExamForm() {
     return (
         <section className={styles.examFormSection}>
             <Form initialValues={initialValues} submit={handleSubmit}>
-                {/* <div className={styles.input}> */}
-                <FormInput name="name" label="Title" />
-                {/* </div> */}
+                <div className={styles.input}>
+                    <FormInput name="name" label="Title" />
+                </div>
                 {/* make it a dropdown menu */}
-                {/* <div className={styles.input}> */}
-                <FormInput name="course" label="Course" />
-                {/* </div> */}
-                {/* <div className={styles.inputContainerFlex2}>
-                    <div className={styles.input}> */}
-                <FormInput name="time_limit" label="Duration" />
-                {/* </div>
-                    <div className={styles.input}> */}
-                <FormInput
-                    type="number"
-                    name="total_marks"
-                    label="Total Marks"
-                />
-                {/* </div>
-                </div> */}
-                {/* <div> */}
-                <Button type="submit">Submit</Button>
-                {/* </div> */}
+                <div className={styles.input}>
+                    <FormInput name="course" label="Course" />
+                </div>
+                <div className={styles.inputContainerFlex2}>
+                    <div className={styles.input}>
+                        <MUIDateAndTimePicker label="Date and Time" />
+                    </div>
+                    <div className={styles.input}>
+                        <FormInput name="time_limit" label="Duration" />
+                    </div>
+                    <div className={styles.input}>
+                        <FormInput
+                            type="number"
+                            name="total_marks"
+                            label="Total Marks"
+                        />
+                    </div>
+                </div>
+                <div>
+                    <Button type="submit">Submit</Button>
+                </div>
             </Form>
         </section>
     );
