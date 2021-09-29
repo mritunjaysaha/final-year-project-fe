@@ -1,7 +1,9 @@
 import { useState } from "react";
 
 import { Button } from "../atoms/button";
-import { ExamForm } from "./createExamForm";
+import { ExamForm } from "./examForm";
+import { QuestionForm } from "./questionForm";
+
 import styles from "./exam.module.scss";
 
 export function Exam() {
@@ -17,7 +19,9 @@ export function Exam() {
                 Create Exam
             </Button>
 
-            {isCreateExamClicked ? <ExamForm /> : ""}
+            {/* {isCreateExamClicked ? <ExamForm /> : ""} */}
+            <ExamForm />
+            <QuestionForm />
         </section>
     );
 }
