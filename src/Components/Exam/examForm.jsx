@@ -5,7 +5,7 @@ import { FormInput } from "../Forms/formInput";
 import { Button } from "../atoms/button";
 import { MUIDateAndTimePicker } from "../DateAndTime";
 
-import styles from "./createExamForm.module.scss";
+import styles from "./exam.module.scss";
 
 export function ExamForm() {
     const initialValues = {
@@ -32,7 +32,7 @@ export function ExamForm() {
     }
 
     return (
-        <section className={styles.examFormSection}>
+        <section className={styles.formSection}>
             <Form initialValues={initialValues} submit={handleSubmit}>
                 <div className={styles.input}>
                     <FormInput name="name" label="Title" />
