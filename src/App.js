@@ -13,7 +13,7 @@ import { Exam } from "./Components/Exam";
 
 import { navLinks } from "./utils/navlinks";
 
-// axios.defaults.baseURL = process.env.REACT_APP_API_URI;
+axios.defaults.baseURL = process.env.REACT_APP_API_URI;
 
 if (window.localStorage.jwtToken) {
     const token = localStorage.jwtToken;
