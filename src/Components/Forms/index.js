@@ -1,4 +1,9 @@
 import { useState, createContext } from "react";
+import { FormInput } from "./formInput";
+import { FormTextarea } from "./textArea";
+
+export { FormInput };
+export { FormTextarea };
 
 export const FormContext = createContext({ form: {} });
 
