@@ -6,6 +6,13 @@ export const authSlice = createSlice({
         isAuthenticated: false,
         _id: "",
         role: "",
+        first_name: "",
+        last_name: "",
+        email: "",
+        username: "",
+        courses: [],
+        exams: [],
+        photo: "",
     },
     reducers: {
         setAuth: (state, { payload }) => {
@@ -15,7 +22,11 @@ export const authSlice = createSlice({
                 _id: payload._id,
             };
         },
+
+        setUserData: (state, { payload }) => {
+            return { ...state, ...payload };
+        },
     },
 });
 
-export const { setAuth } = authSlice.actions;
+export const { setAuth, setUserData } = authSlice.actions;
