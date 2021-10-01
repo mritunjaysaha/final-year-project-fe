@@ -12,7 +12,7 @@ export function ExamForm() {
     const { _id: userId } = useSelector((state) => state.user);
     const initialValues = {
         name: "Demo Exam",
-        course: "614cc5c9456a3d4d0c3a9189",
+        course: "61575d1df8ba5b70b87dcb8e",
         course_coordinator: userId,
         time_limit: "3", // date or number type only -- cannot have 'hours' or other strings
         total_marks: "80",
