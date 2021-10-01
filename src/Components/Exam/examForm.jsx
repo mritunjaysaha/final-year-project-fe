@@ -50,7 +50,10 @@ export function ExamForm() {
                         <MUIDateAndTimePicker label="Date and Time" />
                     </div>
                     <div className={styles.input}>
-                        <FormInput name="time_limit" label="Duration" />
+                        <FormInput
+                            name="time_limit"
+                            label="Duration (in hours)"
+                        />
                     </div>
                     <div className={styles.input}>
                         <FormInput
