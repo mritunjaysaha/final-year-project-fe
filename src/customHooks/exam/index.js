@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-export function useGetAllQuestionsOfExam({ examId }) {
+export function useGetAllQuestionsOfExam(examId) {
     const { _id: userId } = useSelector((state) => state.user);
 
     useEffect(() => {
@@ -13,7 +13,7 @@ export function useGetAllQuestionsOfExam({ examId }) {
                     console.log("useGetAllQuestionsOfExam", res.data);
                 })
                 .catch((err) => {
-                    console.log(err);
+                    console.error("useGetAllQuestionsOfExam", err.message);
                 });
         }
 

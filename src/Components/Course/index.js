@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { useGetUser } from "../../customHooks";
+import { useGetUser, useGetPopulatedCourses } from "../../customHooks";
 
 import { Button } from "../atoms/button";
 import { CourseForm } from "./courseForm";
@@ -11,6 +11,7 @@ export function Course() {
     const [isCreateCourseClicked, setIsCreateCourseClicked] = useState(false);
 
     useGetUser();
+    useGetPopulatedCourses();
 
     return (
         <section className={styles.courseContainer}>

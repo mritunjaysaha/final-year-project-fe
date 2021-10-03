@@ -3,7 +3,7 @@ import jwt_decode from "jwt-decode";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { store } from "./app/store";
-import { setAuth } from "./reducers/Auth/authSlice";
+import { setAuth } from "./reducers/actions";
 
 import { setAuthToken } from "./utils/setAuthToken";
 

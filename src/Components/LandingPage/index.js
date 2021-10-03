@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import jwtDecode from "jwt-decode";
-import { setAuth } from "../../reducers/Auth/authSlice";
+import { setAuth } from "../../reducers/actions";
 
 import { Form } from "../Forms";
 import { FormInput } from "../Forms/formInput";
