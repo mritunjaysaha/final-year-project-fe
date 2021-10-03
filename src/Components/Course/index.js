@@ -4,6 +4,7 @@ import { useGetUser, useGetPopulatedCourses } from "../../customHooks";
 
 import { Button } from "../atoms/button";
 import { CourseForm } from "./courseForm";
+import { ShowCourses } from "./courses";
 
 import styles from "./course.module.scss";
 
@@ -27,7 +28,9 @@ export function Course() {
             </section>
 
             {/* Courses */}
-            <section></section>
+            <section>
+                <ShowCourses />
+            </section>
         </section>
     );
 }
