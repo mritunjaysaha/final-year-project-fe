@@ -10,6 +10,9 @@ export function Navbar() {
                 <Link to={navLinks.home}>Home</Link>
             </p>
             <p>
+                <Link to={navLinks.course}>Course</Link>
+            </p>
+            <p>
                 <Link to={navLinks.exam}>Exam</Link>
             </p>
         </nav>

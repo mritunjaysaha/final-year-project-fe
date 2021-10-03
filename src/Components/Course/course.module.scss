@@ -1,8 +1,12 @@
 @import "../../styles/imports.scss";
 
-.examContainer {
+.courseContainer {
     height: 100vh;
     width: 100vw;
 
     margin: 6rem 12rem 0 12rem;
+}
+
+.courseFormContainer {
+    margin-top: 6rem;
 }

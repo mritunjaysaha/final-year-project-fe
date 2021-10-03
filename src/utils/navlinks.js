@@ -1,1 +1,1 @@
-export const navLinks = { home: "/", exam: "/exam" };
+export const navLinks = { home: "/", exam: "/exam", course: "/course" };

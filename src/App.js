@@ -10,6 +10,7 @@ import { setAuthToken } from "./utils/setAuthToken";
 import { LandingPage } from "./Components/LandingPage";
 import { Navbar } from "./Components/Navbar";
 import { Exam } from "./Components/Exam";
+import { Course } from "./Components/Course";
 
 import { navLinks } from "./utils/navlinks";
 
@@ -37,6 +38,7 @@ function App() {
                 <Switch>
                     <Route exact path={navLinks.home} component={LandingPage} />
                     {/* TODO: Exam Route [Protected route] */}
+                    <Route exact path={navLinks.course} component={Course} />
                     <Route exact path={navLinks.exam} component={Exam} />
                 </Switch>
             </BrowserRouter>
