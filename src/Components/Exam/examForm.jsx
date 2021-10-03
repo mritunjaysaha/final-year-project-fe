@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 import { Form } from "../Forms";
 import { FormInput } from "../Forms/formInput";
@@ -8,18 +9,21 @@ import { MUIDateAndTimePicker } from "../DateAndTime";
 import styles from "./exam.module.scss";
 
 export function ExamForm() {
+    const { _id: userId } = useSelector((state) => state.user);
     const initialValues = {
         name: "Demo Exam",
-        course: "614cc5c9456a3d4d0c3a9189",
-        course_coordinator: "614cc588456a3d4d0c3a9185",
+        course: "61575d1df8ba5b70b87dcb8e",
+        course_coordinator: userId,
         time_limit: "3", // date or number type only -- cannot have 'hours' or other strings
         total_marks: "80",
+        start_date: Date.now(),
+        active_for: Date.now(),
     };
-
-    const userId = "614cc588456a3d4d0c3a9185";
 
     async function handleSubmit(e, form) {
         e.preventDefault();
+
+        console.log({ form });
 
         await axios
             .post(`/api/exam/${userId}`, form)
@@ -46,7 +50,10 @@ export function ExamForm() {
                         <MUIDateAndTimePicker label="Date and Time" />
                     </div>
                     <div className={styles.input}>
-                        <FormInput name="time_limit" label="Duration" />
+                        <FormInput
+                            name="time_limit"
+                            label="Duration (in hours)"
+                        />
                     </div>
                     <div className={styles.input}>
                         <FormInput

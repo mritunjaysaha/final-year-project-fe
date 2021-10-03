@@ -1,13 +1,19 @@
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import jwtDecode from "jwt-decode";
+import { setAuth } from "../../reducers/actions";
 
 import { Form } from "../Forms";
 import { FormInput } from "../Forms/formInput";
 import { Button } from "../atoms/button";
+
 import styles from "./landingPage.module.scss";
 
 export function LandingPage() {
+    const dispatch = useDispatch();
+
     const initialValues = {
-        email: "teacher@test.com",
+        email: "instructor@test.com",
         password: "123456",
     };
 
@@ -18,8 +24,10 @@ export function LandingPage() {
         await axios
             .post(`/api/login`, form)
             .then((res) => {
-                console.log("res", res.data);
                 window.localStorage.setItem("jwtToken", res.data.token);
+
+                const decoded = jwtDecode(res.data.token);
+                dispatch(setAuth(decoded));
             })
             .catch((err) => {
                 console.error(err.message);
