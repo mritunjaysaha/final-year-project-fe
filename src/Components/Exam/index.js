@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { Button } from "../atoms/button";
 import { ExamForm } from "./examForm";
-import { QuestionForm } from "./questionForm";
+import { ShowExams } from "./showExam";
 
 import { useGetUser, useGetAllQuestionsOfExam } from "../../customHooks";
 
@@ -27,6 +27,7 @@ export function Exam() {
             {isCreateExamClicked ? <ExamForm /> : ""}
 
             {/* display the created questions of the user */}
+            <ShowExams />
         </section>
     );
 }
