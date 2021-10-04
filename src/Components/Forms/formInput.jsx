@@ -1,6 +1,10 @@
-import { useContext } from "react";
-import TextField from "@mui/material/TextField";
+import { useContext, useRef } from "react";
+import AutosizeInput from "react-input-autosize";
+import { UilPen } from "@iconscout/react-unicons";
+
 import { FormContext } from "./index";
+
+import styles from "./form.module.scss";
 
 export function FormInput(props) {
     const { label, type = "text", name, ...rest } = props;
@@ -8,16 +12,33 @@ export function FormInput(props) {
     const formContext = useContext(FormContext);
     const { form, handleFormChange } = formContext;
 
+    const inputRef = useRef();
+
     return (
-        <TextField
-            variant="outlined"
-            fullWidth
-            type={type}
-            name={name}
-            label={label}
-            value={form[name]}
-            onChange={handleFormChange}
-            {...rest}
-        />
+        <div className={styles.formInputContainer}>
+            <label htmlFor={name}>{label}</label>
+            <div>
+                <AutosizeInput
+                    ref={inputRef}
+                    variant="outlined"
+                    fullWidth
+                    type={type}
+                    id={name}
+                    name={name}
+                    placeholder={label}
+                    value={form[name]}
+                    onChange={handleFormChange}
+                    {...rest}
+                />
+                <span>
+                    <UilPen
+                        className={styles.icon}
+                        onClick={() => {
+                            inputRef.current.focus();
+                        }}
+                    />
+                </span>
+            </div>
+        </div>
     );
 }
