@@ -18,6 +18,7 @@ export function Form(props) {
     const { children, submit = () => {}, initialValues } = props;
 
     const [form, setForm] = useState(initialValues);
+    const [studentIds, setStudentIds] = useState([]);
 
     const handleFormChange = (event) => {
         const { name, value } = event.target;
@@ -29,11 +30,15 @@ export function Form(props) {
     };
 
     const handleFormSelectChange = (event, selectedOptions) => {
-        console.log("id: ", event.target.id);
-        console.log(selectedOptions);
+        console.log({ selectedOptions }, selectedOptions.option.value);
+        setStudentIds((studentIds) => [
+            ...studentIds,
+            selectedOptions.option.value,
+        ]);
+
         setForm({
             ...form,
-            students: selectedOptions,
+            students: studentIds,
         });
     };
 
