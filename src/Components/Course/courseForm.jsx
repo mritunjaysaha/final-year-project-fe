@@ -1,6 +1,9 @@
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import Select from "react-select";
 
+import { useGetAllUsers } from "../../customHooks";
 import { Form } from "../Forms";
 import { FormInput } from "../Forms";
 import { Button } from "../atoms/button";
@@ -9,17 +12,54 @@ import styles from "./course.module.scss";
 
 export function CourseForm() {
     const { _id: userId } = useSelector((state) => state.user);
+    const { allUsers } = useGetAllUsers();
+
+    const [options, setOptions] = useState([]);
+    const [selectedOptions, setSelectedOptions] = useState([]);
+
+    useEffect(() => {
+        if (!allUsers) {
+            console.log("returned", { allUsers });
+            return;
+        }
+
+        function fillOptions() {
+            let executed = false;
+
+            function fill() {
+                console.log("called");
+                if (!executed) {
+                    executed = true;
+                    for (let i = 0, len = allUsers.length; i < len; i++) {
+                        setOptions((options) => [
+                            ...options,
+                            {
+                                value: allUsers[i]._id,
+                                label: allUsers[i].email,
+                            },
+                        ]);
+                    }
+                    setOptions((options) => [...new Set(options)]);
+                }
+            }
+
+            fill();
+        }
+
+        fillOptions();
+    }, [allUsers]);
 
     const initialValues = {
         course_name: "Demo Course",
         course_coordinator: userId,
+        students: [],
     };
 
     const keys = Object.keys(initialValues);
 
     async function handleSubmit(e, form) {
         e.preventDefault();
-
+        console.log({ form });
         await axios
             .post(`/api/course/${userId}`, form)
             .then((res) => {
@@ -44,7 +84,14 @@ export function CourseForm() {
                 </div>
 
                 {/* TODO: Add something to enrol students in the course */}
-
+                <Select
+                    isMulti
+                    name="students"
+                    placeholder="students"
+                    value={selectedOptions}
+                    options={options}
+                    onChange={setSelectedOptions}
+                />
                 <Button type="submit" aria-label="submit">
                     Submit
                 </Button>

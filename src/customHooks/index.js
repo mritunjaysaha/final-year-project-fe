@@ -1,5 +1,5 @@
-import { useGetUser, useGetPopulatedCourses } from "./user";
+import { useGetUser, useGetPopulatedCourses, useGetAllUsers } from "./user";
 import { useGetAllQuestionsOfExam, useGetExam } from "./exam";
 
-export { useGetUser, useGetPopulatedCourses };
+export { useGetUser, useGetPopulatedCourses, useGetAllUsers };
 export { useGetAllQuestionsOfExam, useGetExam };

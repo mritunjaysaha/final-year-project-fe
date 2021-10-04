@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { setUserData, setCourse } from "../../reducers/actions";
+import { setUserData, setCourse } from "../reducers/actions";
 
 export function useGetUser() {
     const dispatch = useDispatch();
@@ -49,4 +49,29 @@ export function useGetPopulatedCourses() {
             getCourses(userId);
         }
     }, [userId, courses, dispatch]);
+}
+
+export function useGetAllUsers() {
+    const { _id: userId } = useSelector((state) => state.user);
+    const [allUsers, setAllUsers] = useState([]);
+
+    useEffect(() => {
+        async function getAllUsers(userId) {
+            await axios
+                .get(`/api/user/all/${userId}`)
+                .then((res) => {
+                    console.log("useGetAllUsers", res.data);
+                    setAllUsers(res.data);
+                })
+                .catch((err) => {
+                    console.log("useGetAllUsers", err.message);
+                });
+        }
+
+        getAllUsers(userId);
+    }, [userId]);
+    console.log({ allUsers });
+    return {
+        allUsers,
+    };
 }

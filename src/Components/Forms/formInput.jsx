@@ -21,7 +21,6 @@ export function FormInput(props) {
                 <AutosizeInput
                     ref={inputRef}
                     variant="outlined"
-                    fullWidth
                     type={type}
                     id={name}
                     name={name}
