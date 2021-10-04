@@ -46,7 +46,11 @@ export function useGetExam(examId) {
                 });
         }
 
-        getExam(examId, userId);
+        if (!!examId) {
+            getExam(examId, userId);
+        } else {
+            console.log("empty");
+        }
     }, [examId, userId]);
 
     return { examData };
