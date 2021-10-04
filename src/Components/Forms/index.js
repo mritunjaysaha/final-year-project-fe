@@ -1,9 +1,9 @@
 import { useState, createContext } from "react";
 import { FormInput } from "./formInput";
 import { FormTextarea } from "./textArea";
+import { SelectInput } from "./selectInput";
 
-export { FormInput };
-export { FormTextarea };
+export { FormInput, FormTextarea, SelectInput };
 
 export const FormContext = createContext({ form: {} });
 
@@ -28,9 +28,20 @@ export function Form(props) {
         });
     };
 
+    const handleFormSelectChange = (event, selectedOptions) => {
+        console.log("id: ", event.target.id);
+        console.log(selectedOptions);
+        setForm({
+            ...form,
+            students: selectedOptions,
+        });
+    };
+
     return (
         <form onSubmit={(e) => submit(e, form)}>
-            <FormContext.Provider value={{ form, handleFormChange }}>
+            <FormContext.Provider
+                value={{ form, handleFormChange, handleFormSelectChange }}
+            >
                 {children}
             </FormContext.Provider>
         </form>

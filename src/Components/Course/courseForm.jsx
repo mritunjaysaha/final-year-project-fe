@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import Select from "react-select";
 
 import { useGetAllUsers } from "../../customHooks";
 import { Form } from "../Forms";
-import { FormInput } from "../Forms";
+import { FormInput, SelectInput } from "../Forms";
 import { Button } from "../atoms/button";
 
 import styles from "./course.module.scss";
@@ -15,7 +14,6 @@ export function CourseForm() {
     const { allUsers } = useGetAllUsers();
 
     const [options, setOptions] = useState([]);
-    const [selectedOptions, setSelectedOptions] = useState([]);
 
     useEffect(() => {
         if (!allUsers) {
@@ -27,7 +25,6 @@ export function CourseForm() {
             let executed = false;
 
             function fill() {
-                console.log("called");
                 if (!executed) {
                     executed = true;
                     for (let i = 0, len = allUsers.length; i < len; i++) {
@@ -84,14 +81,12 @@ export function CourseForm() {
                 </div>
 
                 {/* TODO: Add something to enrol students in the course */}
-                <Select
-                    isMulti
-                    name="students"
-                    placeholder="students"
-                    value={selectedOptions}
+                <SelectInput
                     options={options}
-                    onChange={setSelectedOptions}
+                    name="students"
+                    label="Enroll Students"
                 />
+
                 <Button type="submit" aria-label="submit">
                     Submit
                 </Button>
