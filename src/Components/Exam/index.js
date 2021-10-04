@@ -12,7 +12,6 @@ export function Exam() {
     const [isCreateExamClicked, setIsCreateExamClicked] = useState(false);
 
     useGetUser();
-    useGetAllQuestionsOfExam("61576b077a5c500d144dfa1b");
 
     return (
         <section className={styles.examContainer}>
