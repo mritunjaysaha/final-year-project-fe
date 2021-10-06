@@ -18,15 +18,22 @@ export function Course() {
         <section className={styles.courseContainer}>
             <Button
                 onClick={() => {
-                    setIsCreateCourseClicked(!isCreateCourseClicked);
+                    setIsCreateCourseClicked(true);
                 }}
             >
                 Create Course
             </Button>
-            <section className={styles.courseFormContainer}>
-                <CourseForm />
-            </section>
-
+            {isCreateCourseClicked ? (
+                <section className={styles.courseFormContainer}>
+                    <CourseForm
+                        formCloseHandler={() => {
+                            setIsCreateCourseClicked(false);
+                        }}
+                    />
+                </section>
+            ) : (
+                ""
+            )}
             {/* Courses */}
             <section>
                 <ShowCourses />
