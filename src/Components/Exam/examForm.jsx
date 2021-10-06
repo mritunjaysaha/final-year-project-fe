@@ -1,18 +1,26 @@
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
 import { Form } from "../Forms";
-import { FormInput } from "../Forms/formInput";
+import { FormInput, SelectInput } from "../Forms";
 import { Button } from "../atoms/button";
 import { MUIDateAndTimePicker } from "../DateAndTime";
 
 import styles from "./exam.module.scss";
+import { useGetPopulatedCourses } from "../../customHooks";
 
 export function ExamForm() {
     const { _id: userId } = useSelector((state) => state.user);
+    const { courses } = useSelector((state) => state.course);
+
+    useGetPopulatedCourses();
+
+    const [options, setOptions] = useState([]);
+
     const initialValues = {
         name: "Demo Exam",
-        course: "61575d1df8ba5b70b87dcb8e",
+        course: "",
         course_coordinator: userId,
         time_limit: "3", // date or number type only -- cannot have 'hours' or other strings
         total_marks: "80",
@@ -20,10 +28,36 @@ export function ExamForm() {
         active_for: Date.now(),
     };
 
+    useEffect(() => {
+        function createCourseOptions(allCourses) {
+            let executed = false;
+            console.log("here");
+            function create() {
+                if (!executed) {
+                    executed = true;
+                    for (let i = 0, len = allCourses.length; i < len; i++) {
+                        setOptions((options) => [
+                            ...options,
+                            {
+                                value: allCourses[i]._id,
+                                label: allCourses[i].course_name,
+                            },
+                        ]);
+                    }
+                    setOptions((options) => [...new Set(options)]);
+                }
+            }
+
+            create();
+        }
+
+        if (courses.length > 0) {
+            createCourseOptions(courses);
+        }
+    }, [courses]);
+
     async function handleSubmit(e, form) {
         e.preventDefault();
-
-        console.log({ form });
 
         await axios
             .post(`/api/exam/${userId}`, form)
@@ -43,7 +77,12 @@ export function ExamForm() {
                 </div>
                 {/* make it a dropdown menu */}
                 <div className={styles.input}>
-                    <FormInput name="course" label="Course" />
+                    <SelectInput
+                        name="course"
+                        label="Course"
+                        options={options}
+                    />
+                    {console.log({ options })}
                 </div>
                 <div className={styles.inputContainerFlex2}>
                     <div className={styles.input}>

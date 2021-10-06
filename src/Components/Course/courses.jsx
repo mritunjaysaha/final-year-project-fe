@@ -6,7 +6,7 @@ export function ShowCourses() {
         <>
             {courses.map((course) => {
                 return (
-                    <article>
+                    <article key={course._id}>
                         <p>{course.course_name}</p>
                     </article>
                 );
