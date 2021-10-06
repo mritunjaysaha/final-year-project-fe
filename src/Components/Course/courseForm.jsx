@@ -82,9 +82,10 @@ export function CourseForm() {
 
                 {/* TODO: Add something to enrol students in the course */}
                 <SelectInput
-                    options={options}
+                    isMulti={true}
                     name="students"
                     label="Enroll Students"
+                    options={options}
                 />
 
                 <Button type="submit" aria-label="submit">

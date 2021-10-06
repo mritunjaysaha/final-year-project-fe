@@ -3,6 +3,14 @@ import Select from "react-select";
 
 import { FormContext } from "./index";
 
+/**
+ *
+ * @param {Boolean} isMulti -- default value: false
+ * @param {String} name -- it should be same as one of the keys of the form object
+ * @param {String} label
+ * @param {Array} options
+ * @returns
+ */
 export function SelectInput({
     isMulti = false,
     name,
@@ -13,8 +21,6 @@ export function SelectInput({
     const formContext = useContext(FormContext);
     const { handleFormSelectChangeMulti, handleFormSelectChangeSingle } =
         formContext;
-
-    console.log("select-input", name);
 
     return (
         <Select
