@@ -8,21 +8,31 @@ import { useSelector } from "react-redux";
  */
 export function useGetAllQuestionsOfExam(examId) {
     const { _id: userId } = useSelector((state) => state.user);
+    const [questions, setQuestions] = useState([]);
+
+    console.log("useGetAllQuestionsOfExam", { examId, userId });
 
     useEffect(() => {
         async function getAllQuestions(userId, examId) {
             await axios
-                .get(`/api/exam/all-question/${examId}/${userId}`)
+                .get(`/api/exam/all-questions/${examId}/${userId}`)
                 .then((res) => {
                     console.log("useGetAllQuestionsOfExam", res.data);
+                    setQuestions(res.data);
                 })
                 .catch((err) => {
                     console.error("useGetAllQuestionsOfExam", err.message);
                 });
         }
 
-        getAllQuestions(userId, examId);
+        if (!examId) {
+            console.log("No examId");
+        } else {
+            getAllQuestions(userId, examId);
+        }
     }, [userId, examId]);
+
+    return { questions };
 }
 
 /**
@@ -38,18 +48,16 @@ export function useGetExam(examId) {
             await axios
                 .get(`/api/exam/${examId}/${userId}`)
                 .then((res) => {
-                    console.log(res.data);
-                    setExamData((examData) => res.data);
+                    console.log("[useGetExam]", res.data);
+                    setExamData(res.data);
                 })
                 .catch((err) => {
-                    console.error("useGetExam", err);
+                    console.error("[useGetExam]", err);
                 });
         }
 
         if (!!examId) {
             getExam(examId, userId);
-        } else {
-            console.log("empty");
         }
     }, [examId, userId]);
 

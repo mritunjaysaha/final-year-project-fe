@@ -6,12 +6,8 @@ import { FormInput, FormTextarea } from "../Forms";
 
 import styles from "./exam.module.scss";
 
-export function QuestionForm() {
-    const examId = "61576760f8ba5b70b87dcb93";
-    const questionId = window.localStorage.getItem("questionId");
+export function QuestionForm({ examId, formCloseHandler }) {
     const { _id: userId } = useSelector((state) => state.user);
-
-    console.log({ questionId });
 
     const initialValues = {
         name: "questions",
@@ -28,36 +24,16 @@ export function QuestionForm() {
             .post(`/api/question/${examId}/${userId}`, form)
             .then((res) => {
                 console.log("question", res);
-                window.localStorage.setItem("questionId", res.data._id);
+                formCloseHandler();
             })
             .catch((err) => {
                 console.log("question", err.message);
             });
     }
 
-    async function handleUpdate(e, form) {
-        e.preventDefault();
-
-        const updateData = { name: form.name, marks: form.marks };
-
-        console.log("update", updateData);
-
-        await axios
-            .put(`/api/question/${questionId}/${userId}`, updateData)
-            .then((res) => {
-                console.log("question", res);
-            })
-            .catch((err) => {
-                console.log("question", err);
-            });
-    }
-
     return (
         <section className={styles.formSection}>
-            <Form
-                initialValues={initialValues}
-                submit={!!questionId ? handleUpdate : handleSubmit}
-            >
+            <Form initialValues={initialValues} submit={handleSubmit}>
                 <div className={styles.input}>
                     <FormTextarea name="name" label="Question Details" />
                 </div>
@@ -67,9 +43,7 @@ export function QuestionForm() {
                     </div>
 
                     <div>
-                        <Button type="submit">
-                            {!!questionId ? "Update" : "Save"}
-                        </Button>
+                        <Button type="submit">Save</Button>
                     </div>
                 </div>
             </Form>
