@@ -31,7 +31,7 @@ export function ExamForm({ formCloseHandler }) {
     useEffect(() => {
         function createCourseOptions(allCourses) {
             let executed = false;
-            console.log("here");
+
             function create() {
                 if (!executed) {
                     executed = true;

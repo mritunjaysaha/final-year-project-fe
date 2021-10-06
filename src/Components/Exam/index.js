@@ -4,7 +4,7 @@ import { Button } from "../atoms/button";
 import { ExamForm } from "./examForm";
 import { ShowExams } from "./showExam";
 
-import { useGetUser, useGetAllQuestionsOfExam } from "../../customHooks";
+import { useGetUser } from "../../customHooks";
 
 import styles from "./exam.module.scss";
 
