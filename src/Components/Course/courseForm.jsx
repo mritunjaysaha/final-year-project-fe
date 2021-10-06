@@ -21,7 +21,7 @@ export function CourseForm() {
             return;
         }
 
-        function fillOptions() {
+        function fillOptions(allUsers) {
             let executed = false;
 
             function fill() {
@@ -43,7 +43,7 @@ export function CourseForm() {
             fill();
         }
 
-        fillOptions();
+        fillOptions(allUsers);
     }, [allUsers]);
 
     const initialValues = {

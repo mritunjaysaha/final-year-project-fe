@@ -3,16 +3,31 @@ import Select from "react-select";
 
 import { FormContext } from "./index";
 
-export function SelectInput({ name, label, options, ...rest }) {
+export function SelectInput({
+    isMulti = false,
+    name,
+    label,
+    options,
+    ...rest
+}) {
     const formContext = useContext(FormContext);
-    const { handleFormSelectChange } = formContext;
+    const { handleFormSelectChangeMulti, handleFormSelectChangeSingle } =
+        formContext;
+
+    console.log("select-input", name);
 
     return (
         <Select
-            isMulti
+            isMulti={isMulti}
             placeholder={label}
             options={options}
-            onChange={handleFormSelectChange}
+            onChange={(selectedOptions) => {
+                if (isMulti) {
+                    handleFormSelectChangeMulti(name, selectedOptions);
+                } else {
+                    handleFormSelectChangeSingle(name, selectedOptions);
+                }
+            }}
             {...rest}
         />
     );

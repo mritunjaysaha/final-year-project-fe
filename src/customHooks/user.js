@@ -37,7 +37,6 @@ export function useGetPopulatedCourses() {
             await axios
                 .get(`/api/user/populated-courses/${userId}`)
                 .then((res) => {
-                    console.log(res.data);
                     dispatch(setCourse(res.data));
                 })
                 .catch((err) => {
@@ -70,7 +69,7 @@ export function useGetAllUsers() {
 
         getAllUsers(userId);
     }, [userId]);
-    console.log({ allUsers });
+
     return {
         allUsers,
     };
