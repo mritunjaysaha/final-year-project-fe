@@ -17,13 +17,21 @@ export function Exam() {
         <section className={styles.examContainer}>
             <Button
                 onClick={() => {
-                    setIsCreateExamClicked(!isCreateExamClicked);
+                    setIsCreateExamClicked(true);
                 }}
             >
                 Create Exam
             </Button>
 
-            {isCreateExamClicked ? <ExamForm /> : ""}
+            {isCreateExamClicked ? (
+                <ExamForm
+                    formCloseHandler={() => {
+                        setIsCreateExamClicked(false);
+                    }}
+                />
+            ) : (
+                ""
+            )}
 
             {/* display the created questions of the user */}
             <ShowExams />

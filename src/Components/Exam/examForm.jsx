@@ -10,7 +10,7 @@ import { MUIDateAndTimePicker } from "../DateAndTime";
 import styles from "./exam.module.scss";
 import { useGetPopulatedCourses } from "../../customHooks";
 
-export function ExamForm() {
+export function ExamForm({ formCloseHandler }) {
     const { _id: userId } = useSelector((state) => state.user);
     const { courses } = useSelector((state) => state.course);
 
@@ -63,6 +63,7 @@ export function ExamForm() {
             .post(`/api/exam/${userId}`, form)
             .then((res) => {
                 console.log({ res });
+                formCloseHandler();
             })
             .catch((err) => {
                 console.log({ err });

@@ -9,7 +9,7 @@ import { Button } from "../atoms/button";
 
 import styles from "./course.module.scss";
 
-export function CourseForm() {
+export function CourseForm({ formCloseHandler }) {
     const { _id: userId } = useSelector((state) => state.user);
     const { allUsers } = useGetAllUsers();
 
@@ -56,11 +56,11 @@ export function CourseForm() {
 
     async function handleSubmit(e, form) {
         e.preventDefault();
-        console.log({ form });
         await axios
             .post(`/api/course/${userId}`, form)
             .then((res) => {
                 console.log(res.data);
+                formCloseHandler();
             })
             .catch((err) => {
                 console.error(err);
