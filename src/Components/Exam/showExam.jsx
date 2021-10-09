@@ -46,18 +46,27 @@ function ExamCard({ examId }) {
             });
     }
 
+    async function deleteHandler() {
+        await axios
+            .delete()
+            .then((res) => {
+                console.log("[showExam] deleteHandler", res.data);
+            })
+            .catch((err) => console.error("[showExam]", err.message));
+    }
+
     return (
-        <section>
+        <section className={styles.examCardSection}>
             <Form initialValues={initialValues} submit={submitHandler}>
                 <div className={styles.input}>
                     <FormInput name="name" label="Title" />
                 </div>
                 <div className={styles.input}>
-                    {/* <SelectInput
-                            name="course"
-                            label="Course"
-                            options={options}
-                        /> */}
+                    <SelectInput
+                        name="course"
+                        label="Course"
+                        // options={options}
+                    />
                 </div>
                 <div className={styles.inputContainerFlex2}>
                     <div className={styles.input}>
@@ -82,21 +91,24 @@ function ExamCard({ examId }) {
                 </div>
             </Form>
 
-            <div>
-                <Button
-                    onClick={() => {
-                        setShowQuestionForm(true);
-                    }}
-                >
-                    Add Questions
-                </Button>
-                <Button
-                    onClick={() => {
-                        setShowQuestions(!showQuestions);
-                    }}
-                >
-                    Show Questions
-                </Button>
+            <div className={styles.examCardButtonsContainer}>
+                <div>
+                    <Button
+                        onClick={() => {
+                            setShowQuestionForm(true);
+                        }}
+                    >
+                        Add Questions
+                    </Button>
+                    <Button
+                        onClick={() => {
+                            setShowQuestions(!showQuestions);
+                        }}
+                    >
+                        Show Questions
+                    </Button>
+                </div>
+                <Button onClick={deleteHandler}>Delete Exam</Button>
             </div>
             {showQuestionForm ? <QuestionForm /> : ""}
             {/* display questions with the option to update questions */}
