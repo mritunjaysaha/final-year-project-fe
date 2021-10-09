@@ -48,7 +48,7 @@ function ExamCard({ examId }) {
 
     async function deleteHandler() {
         await axios
-            .delete()
+            .delete(`/api/exam/${examId}/${userId}`)
             .then((res) => {
                 console.log("[showExam] deleteHandler", res.data);
             })
