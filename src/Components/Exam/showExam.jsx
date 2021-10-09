@@ -91,7 +91,7 @@ function ExamCard({ examId }) {
                 </div>
             </Form>
 
-            <div className={styles.examCardButtonsContainer}>
+            <div className={styles.buttonsContainer}>
                 <div>
                     <Button
                         onClick={() => {
@@ -102,7 +102,7 @@ function ExamCard({ examId }) {
                     </Button>
                     <Button
                         onClick={() => {
-                            setShowQuestions(!showQuestions);
+                            setShowQuestions(true);
                         }}
                     >
                         Show Questions
@@ -110,10 +110,25 @@ function ExamCard({ examId }) {
                 </div>
                 <Button onClick={deleteHandler}>Delete Exam</Button>
             </div>
-            {showQuestionForm ? <QuestionForm /> : ""}
+            {showQuestionForm ? (
+                <QuestionForm
+                    examId={examId}
+                    formCloseHandler={() => {
+                        setShowQuestionForm(false);
+                    }}
+                />
+            ) : (
+                ""
+            )}
             {/* display questions with the option to update questions */}
 
-            {showQuestions ? <ShowQuestions questions={questions} /> : ""}
+            {showQuestions ? (
+                <ShowQuestions questions={questions} examId={examId} />
+            ) : (
+                ""
+            )}
+
+            <ShowQuestions questions={questions} />
         </section>
     );
 }

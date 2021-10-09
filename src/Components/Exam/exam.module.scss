@@ -12,18 +12,18 @@
 
         margin-bottom: 2rem;
     }
+}
 
-    .examCardButtonsContainer {
-        display: flex;
-        justify-content: space-between;
+.buttonsContainer {
+    display: flex;
+    justify-content: space-between;
 
-        width: inherit;
+    width: inherit;
 
-        div {
-            button {
-                &:first-of-type {
-                    margin-right: 2rem;
-                }
+    div {
+        button {
+            &:first-of-type {
+                margin-right: 2rem;
             }
         }
     }
