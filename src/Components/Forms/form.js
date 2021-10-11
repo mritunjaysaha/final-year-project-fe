@@ -25,7 +25,10 @@ export function Form(props) {
     };
 
     const handleFormSelectChangeMulti = (name, selectedOptions) => {
-        setIds((ids) => [...ids, selectedOptions.value]);
+        console.log(selectedOptions);
+        const ids = [];
+
+        selectedOptions.map(({ value }) => ids.push(value));
 
         setForm({
             ...form,

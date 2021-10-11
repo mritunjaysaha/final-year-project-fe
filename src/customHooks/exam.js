@@ -63,3 +63,27 @@ export function useGetExam(examId) {
 
     return { examData };
 }
+
+export function useGetAllPopulatedExams(examIds) {
+    const { _id: userId } = useSelector((state) => state.user);
+    const [examDetails, setExamDetails] = useState([]);
+
+    useEffect(() => {
+        async function getExamDetails(examId, userId) {
+            await axios
+                .get(`/api/exam/${examId}/${userId}`)
+                .then((res) => {
+                    console.log("getExamDetails", res.data);
+
+                    setExamDetails((previous) => [...previous, res.data]);
+                })
+                .catch((err) => console.error("getExamDetails", err.message));
+        }
+
+        if (userId && examIds) {
+            examIds.map((examId) => getExamDetails(examId, userId));
+        }
+    }, [userId, examIds]);
+
+    return examDetails;
+}

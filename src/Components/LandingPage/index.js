@@ -13,8 +13,8 @@ export function LandingPage() {
     const dispatch = useDispatch();
 
     const initialValues = {
-        email: "instructor@test.com",
-        password: "123456",
+        email: "",
+        password: "",
     };
 
     async function handleSubmit(e, form) {
