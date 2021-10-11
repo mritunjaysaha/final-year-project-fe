@@ -56,9 +56,13 @@ export function CourseForm({ formCloseHandler }) {
 
     async function handleSubmit(e, form) {
         e.preventDefault();
+
+        console.log(form);
         await axios
             .post(`/api/course/${userId}`, form)
             .then((res) => {
+                console.log("handleSubmit", res.data);
+
                 formCloseHandler();
             })
             .catch((err) => {

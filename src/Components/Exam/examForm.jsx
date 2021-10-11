@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 import { Form } from "../Forms";
 import { FormInput, SelectInput } from "../Forms";
@@ -10,6 +11,11 @@ import { MUIDateAndTimePicker } from "../DateAndTime";
 import styles from "./exam.module.scss";
 import { useGetPopulatedCourses } from "../../customHooks";
 
+/**
+ * Exam form
+ * @param {function} formCloseHandler
+ * @returns {Element}
+ */
 export function ExamForm({ formCloseHandler }) {
     const { _id: userId } = useSelector((state) => state.user);
     const { courses } = useSelector((state) => state.course);
@@ -110,3 +116,7 @@ export function ExamForm({ formCloseHandler }) {
         </section>
     );
 }
+
+ExamForm.propTypes = {
+    formCloseHandler: PropTypes.func.isRequired,
+};
