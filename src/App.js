@@ -1,5 +1,10 @@
+import ImagesToPDF from "./Components/ImagesToPDF/ImagesToPDF";
 function App() {
-    return <div className="App">Hello, World</div>;
+    return (
+        <div>
+            <ImagesToPDF/>
+        </div>
+    );
 }
 
 export default App;
