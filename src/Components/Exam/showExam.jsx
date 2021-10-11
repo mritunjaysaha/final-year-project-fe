@@ -15,15 +15,13 @@ import styles from "./exam.module.scss";
 import { QuestionForm } from "./questionForm";
 import { ShowQuestions } from "./showQuestions";
 
+import { updateExam } from "../../utils/updateRequests";
+
 function ExamCard({ examData }) {
     const [showQuestionForm, setShowQuestionForm] = useState(false);
     const [showQuestions, setShowQuestions] = useState(false);
-    const [students, setStudents] = useState([]);
-
-    console.log("[Exam Card]", examData);
 
     const { _id: userId } = useSelector((state) => state.user);
-
     const {
         _id: examId,
         name,
@@ -35,6 +33,7 @@ function ExamCard({ examData }) {
     } = examData;
 
     const { questions } = useGetAllQuestionsOfExam(examId);
+    const { students } = useGetEnrolledStudentsInCourse(course);
 
     const initialValues = {
         name,
@@ -51,7 +50,6 @@ function ExamCard({ examData }) {
             .put(`/api/exam/${examId}/${userId}`, form)
             .then((res) => {
                 console.log("[ExamCard][submitHandler]", res.data);
-                setStudents(res.data);
             })
             .catch((err) => {
                 console.error("[ExamCard][submitHandler]", err.message);
@@ -67,25 +65,9 @@ function ExamCard({ examData }) {
             .catch((err) => console.error("[showExam]", err.message));
     }
 
-    async function getAllEnrolledStudentsInCourse(courseId) {
-        console.log(`%c course ${courseId}`);
-        console.log(courseId, userId);
-        await axios
-            .get(`/api/course/${courseId}/${userId}`)
-            .then((res) => console.log("courses", res.data))
-            .catch((err) => console.error("courses", err.message));
-    }
-
     async function enrollAllHandler() {
-        const promise = new Promise((resolve, reject) => {
-            resolve(getAllEnrolledStudentsInCourse(initialValues.course));
-        });
-
-        promise
-            .then((res) => {
-                console.log("enrollAllHandler", res);
-            })
-            .catch((err) => console.error("enrollAllHandler", err));
+        console.log(`%c${JSON.stringify(students)}`, "background-color: blue");
+        updateExam({ students }, examId, userId);
     }
 
     return (
