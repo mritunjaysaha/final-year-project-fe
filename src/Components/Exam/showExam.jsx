@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 import {
     useGetAllQuestionsOfExam,
     useGetExam,
@@ -169,8 +170,12 @@ function ExamCard({ examData }) {
     );
 }
 
+ExamCard.propTypes = {
+    examData: PropTypes.array,
+};
+
 export function ShowExams() {
-    const { exams, _id: userId } = useSelector((state) => state.user);
+    const { exams } = useSelector((state) => state.user);
 
     console.log(
         `%cexams ${JSON.stringify(exams)}`,
@@ -183,11 +188,7 @@ export function ShowExams() {
         return (
             <>
                 {examDetails.map((examData) => (
-                    <ExamCard
-                        key={examData._id}
-                        examData={examData}
-                        userId={userId}
-                    />
+                    <ExamCard key={examData._id} examData={examData} />
                 ))}
             </>
         );
