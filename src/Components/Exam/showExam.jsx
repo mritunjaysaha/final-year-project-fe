@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import {
@@ -220,6 +221,7 @@ function StudentExamCard({ examData }) {
             <p>{time_limit}</p>
             <p>{total_marks}</p>
             <p>{active_for}</p>
+            <Link to="">Attempt</Link>
         </article>
     );
 }
