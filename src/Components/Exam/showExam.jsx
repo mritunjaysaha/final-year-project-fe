@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import {
@@ -11,12 +12,18 @@ import {
 import { Form, FormInput, SelectInput } from "../Forms";
 import { Button } from "../atoms/button";
 
-import styles from "./exam.module.scss";
 import { QuestionForm } from "./questionForm";
 import { ShowQuestions } from "./showQuestions";
 
 import { updateExam } from "../../utils/updateRequests";
 
+import styles from "./exam.module.scss";
+
+/**
+ *
+ * @param {Array} examData
+ * @returns {Element}
+ */
 function ExamCard({ examData }) {
     const [showQuestionForm, setShowQuestionForm] = useState(false);
     const [showQuestions, setShowQuestions] = useState(false);
@@ -157,7 +164,7 @@ ExamCard.propTypes = {
 };
 
 export function ShowExams() {
-    const { exams } = useSelector((state) => state.user);
+    const { exams, role } = useSelector((state) => state.user);
 
     console.log(
         `%cexams ${JSON.stringify(exams)}`,
@@ -165,16 +172,76 @@ export function ShowExams() {
     );
 
     const examDetails = useGetAllPopulatedExams(exams);
-    console.log({ examDetails });
+
     if (examDetails.length) {
         return (
             <>
                 {examDetails.map((examData) => (
-                    <ExamCard key={examData._id} examData={examData} />
+                    <ExamCard
+                        key={examData._id}
+                        examData={examData}
+                        role={role}
+                    />
                 ))}
             </>
         );
     }
 
-    return <></>;
+    return (
+        <>
+            {examDetails.length
+                ? examDetails.map((examData) => (
+                      <ExamCard key={examData._id} examData={examData} />
+                  ))
+                : ""}
+        </>
+    );
+}
+function StudentExamCard({ examData }) {
+    const {
+        name,
+        course,
+        course_coordinator,
+        time_limit,
+        total_marks,
+        active_for,
+    } = examData;
+    const { course_name } = course;
+    const { first_name, last_name } = course_coordinator;
+
+    console.log(examData);
+
+    return (
+        <article className={styles.studentExamCard}>
+            <p>{name}</p>
+            <p>{course_name}</p>
+            <p>
+                {first_name} {last_name}
+            </p>
+            <p>{time_limit}</p>
+            <p>{total_marks}</p>
+            <p>{active_for}</p>
+            <Link to="">Attempt</Link>
+        </article>
+    );
+}
+
+StudentExamCard.propTypes = {
+    examData: PropTypes.array.isRequired,
+};
+
+export function ShowStudentExams() {
+    const { exams } = useSelector((state) => state.user);
+
+    const examDetails = useGetAllPopulatedExams(exams);
+
+    return (
+        <>
+            {examDetails.length
+                ? examDetails.map((examData) => (
+                      <StudentExamCard examData={examData} />
+                  ))
+                : ""}
+        </>
+    );
 }
