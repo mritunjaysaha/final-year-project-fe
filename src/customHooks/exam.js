@@ -3,7 +3,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 /**
- *
+ * Get all questions for the examId
  * @param {ObjectId} examId
  */
 export function useGetAllQuestionsOfExam(examId) {
@@ -64,6 +64,11 @@ export function useGetExam(examId) {
     return { examData };
 }
 
+/**
+ * Fetches the exam details for all the examIds
+ * @param {Array[ObjectIds]} examIds
+ * @returns {Array} examDetails
+ */
 export function useGetAllPopulatedExams(examIds) {
     const { _id: userId } = useSelector((state) => state.user);
     const [examDetails, setExamDetails] = useState([]);

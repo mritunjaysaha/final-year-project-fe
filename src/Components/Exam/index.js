@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import { Button } from "../atoms/button";
 import { ExamForm } from "./examForm";
-import { ShowExams } from "./showExam";
+import { ShowExams, ShowStudentExams } from "./showExam";
 
 import { useGetUser } from "../../customHooks";
 import { checkRole } from "../../utils";
@@ -40,18 +40,17 @@ function InstructorExamPage() {
 }
 
 function StudentExamPage() {
-    const { user } = useSelector((state) => state);
-
-    console.log({ user });
-
-    return <>{JSON.stringify(user)}</>;
+    return (
+        <section className={styles.examContainer}>
+            <ShowStudentExams />
+        </section>
+    );
 }
 
 export function Exam() {
     useGetUser();
 
     const { role } = useSelector((state) => state.user);
-    console.log({ role });
     switch (checkRole(role)) {
         case "STUDENT":
             return <StudentExamPage />;
