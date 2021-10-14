@@ -11,6 +11,7 @@ import { LandingPage } from "./Components/LandingPage";
 import { Navbar } from "./Components/Navbar";
 import { Exam } from "./Components/Exam";
 import { Course } from "./Components/Course";
+import { MyProfile } from "./Components/MyProfile";
 
 import { navLinks } from "./utils/navlinks";
 
@@ -40,6 +41,11 @@ function App() {
                     {/* TODO: Exam Route [Protected route] */}
                     <Route exact path={navLinks.course} component={Course} />
                     <Route exact path={navLinks.exam} component={Exam} />
+                    <Route
+                        exact
+                        path={navLinks.myProfile}
+                        component={MyProfile}
+                    />
                 </Switch>
             </BrowserRouter>
         </>
