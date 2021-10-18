@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import {
@@ -16,6 +16,7 @@ import { QuestionForm } from "./questionForm";
 import { ShowQuestions } from "./showQuestions";
 
 import { updateExam } from "../../utils/updateRequests";
+import { navLinks } from "../../utils/navlinks";
 
 import styles from "./exam.module.scss";
 
@@ -198,7 +199,9 @@ export function ShowExams() {
     );
 }
 function StudentExamCard({ examData }) {
+    const history = useHistory();
     const {
+        _id: examId,
         name,
         course,
         course_coordinator,
@@ -209,8 +212,13 @@ function StudentExamCard({ examData }) {
     const { course_name } = course;
     const { first_name, last_name } = course_coordinator;
 
-    console.log(examData);
-
+    function attemptHandler() {
+        console.log(
+            "%c[attemptHandler] clicked",
+            "background-color: red; color: white; font-weight: bold"
+        );
+        history.push(`${navLinks.attempt}/${examId}`);
+    }
     return (
         <article className={styles.studentExamCard}>
             <p>{name}</p>
@@ -221,13 +229,14 @@ function StudentExamCard({ examData }) {
             <p>{time_limit}</p>
             <p>{total_marks}</p>
             <p>{active_for}</p>
-            <Link to="">Attempt</Link>
+
+            <Button onClick={attemptHandler}>Attempt</Button>
         </article>
     );
 }
 
 StudentExamCard.propTypes = {
-    examData: PropTypes.array.isRequired,
+    examData: PropTypes.object.isRequired,
 };
 
 export function ShowStudentExams() {
@@ -239,7 +248,7 @@ export function ShowStudentExams() {
         <>
             {examDetails.length
                 ? examDetails.map((examData) => (
-                      <StudentExamCard examData={examData} />
+                      <StudentExamCard key={examData._id} examData={examData} />
                   ))
                 : ""}
         </>

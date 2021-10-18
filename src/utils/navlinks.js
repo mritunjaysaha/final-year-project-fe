@@ -3,4 +3,5 @@ export const navLinks = {
     exam: "/exam",
     course: "/course",
     myProfile: "/myProfile",
+    attempt: "/attempt",
 };

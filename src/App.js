@@ -12,7 +12,7 @@ import { Navbar } from "./Components/Navbar";
 import { Exam } from "./Components/Exam";
 import { Course } from "./Components/Course";
 import { MyProfile } from "./Components/MyProfile";
-
+import { ExamPage } from "./Components/ExamPage";
 import { navLinks } from "./utils/navlinks";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URI;
@@ -45,6 +45,11 @@ function App() {
                         exact
                         path={navLinks.myProfile}
                         component={MyProfile}
+                    />
+                    <Route
+                        exact
+                        path={`/attempt/:examId`}
+                        component={ExamPage}
                     />
                 </Switch>
             </BrowserRouter>
