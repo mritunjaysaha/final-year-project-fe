@@ -79,16 +79,58 @@ export function useGetAllPopulatedExams(examIds) {
                 .get(`/api/exam/${examId}/${userId}`)
                 .then((res) => {
                     const data = res.data;
-                    console.log("getExamDetails", data);
+                    console.log("useGetAllPopulatedExams", data);
                     setExamDetails((previous) => [...previous, data]);
                 })
-                .catch((err) => console.error("getExamDetails", err.message));
+                .catch((err) =>
+                    console.error("useGetAllPopulatedExams", err.message)
+                );
         }
 
         if (userId && examIds) {
             examIds.map((examId) => getExamDetails(examId, userId));
         }
     }, [userId, examIds]);
+
+    return examDetails;
+}
+
+/**
+ *
+ * @param {Array[ObjectIds]} examIds
+ * @returns {Array} examDetails
+ */
+export function usePopulatedExams(examIds) {
+    const { _id: userId } = useSelector((state) => state.user);
+    const [examDetails, setExamDetails] = useState([]);
+
+    useEffect(() => {
+        async function getPopulatedExamDetails(examId, userId) {
+            await axios
+                .get(`/api/exam/populate/${examId}/${userId}`)
+                .then((res) => {
+                    const data = res.data;
+                    setExamDetails((previous) => [...previous, data]);
+                    console.log("usePopulatedExams", data);
+                })
+                .catch((err) =>
+                    console.error("usePopulatedExams", err.message)
+                );
+        }
+        console.log(
+            "%cusePopulatedExams",
+            "background-color:yellow; color:black"
+        );
+        if (userId) {
+            examIds.map((examId) => {
+                console.log(
+                    `%c examId: ${examId} userId: ${userId}`,
+                    "background-color: yellow; color: black"
+                );
+                getPopulatedExamDetails(examId, userId);
+            });
+        }
+    });
 
     return examDetails;
 }

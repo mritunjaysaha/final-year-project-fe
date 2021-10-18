@@ -8,6 +8,7 @@ import {
     useGetExam,
     useGetEnrolledStudentsInCourse,
     useGetAllPopulatedExams,
+    usePopulatedExams,
 } from "../../customHooks";
 import { Form, FormInput, SelectInput } from "../Forms";
 import { Button } from "../atoms/button";
@@ -242,7 +243,7 @@ StudentExamCard.propTypes = {
 export function ShowStudentExams() {
     const { exams } = useSelector((state) => state.user);
 
-    const examDetails = useGetAllPopulatedExams(exams);
+    const examDetails = usePopulatedExams(exams);
 
     return (
         <>
