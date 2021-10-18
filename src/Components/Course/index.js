@@ -41,6 +41,14 @@ function CourseInstructorPage() {
     );
 }
 
+function CourseStudentPage() {
+    return (
+        <section className={styles.courseContainer}>
+            <ShowCourses />
+        </section>
+    );
+}
+
 export function Course() {
     const { role } = useSelector((state) => state.user);
 
@@ -49,7 +57,7 @@ export function Course() {
 
     switch (checkRole(role)) {
         case "STUDENT":
-            return <></>;
+            return <CourseStudentPage />;
         case "INSTRUCTOR":
             return <CourseInstructorPage />;
         default:

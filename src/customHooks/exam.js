@@ -110,8 +110,9 @@ export function usePopulatedExams(examIds) {
                 .get(`/api/exam/populate/${examId}/${userId}`)
                 .then((res) => {
                     const data = res.data;
-                    setExamDetails((previous) => [...previous, data]);
+                    console.log("res", res.data);
                     console.log("usePopulatedExams", data);
+                    setExamDetails((previous) => [...previous, data]);
                 })
                 .catch((err) =>
                     console.error("usePopulatedExams", err.message)
@@ -121,7 +122,7 @@ export function usePopulatedExams(examIds) {
             "%cusePopulatedExams",
             "background-color:yellow; color:black"
         );
-        if (userId) {
+        if (!!userId && !!examIds) {
             examIds.map((examId) => {
                 console.log(
                     `%c examId: ${examId} userId: ${userId}`,

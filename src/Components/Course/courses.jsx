@@ -31,7 +31,7 @@ export function ShowCourses() {
     return (
         <section className={styles.showCoursesSection}>
             {courses.map((course) => {
-                return <CourseCard course={course} />;
+                return <CourseCard key={course._id} course={course} />;
             })}
         </section>
     );
