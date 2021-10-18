@@ -78,9 +78,9 @@ export function useGetAllPopulatedExams(examIds) {
             await axios
                 .get(`/api/exam/${examId}/${userId}`)
                 .then((res) => {
-                    console.log("getExamDetails", res.data);
-
-                    setExamDetails((previous) => [...previous, res.data]);
+                    const data = res.data;
+                    console.log("getExamDetails", data);
+                    setExamDetails((previous) => [...previous, data]);
                 })
                 .catch((err) => console.error("getExamDetails", err.message));
         }
