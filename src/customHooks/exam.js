@@ -131,7 +131,7 @@ export function usePopulatedExams(examIds) {
                 getPopulatedExamDetails(examId, userId);
             });
         }
-    });
+    }, [examIds, userId]);
 
     return examDetails;
 }
