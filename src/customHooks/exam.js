@@ -78,17 +78,60 @@ export function useGetAllPopulatedExams(examIds) {
             await axios
                 .get(`/api/exam/${examId}/${userId}`)
                 .then((res) => {
-                    console.log("getExamDetails", res.data);
-
-                    setExamDetails((previous) => [...previous, res.data]);
+                    const data = res.data;
+                    console.log("useGetAllPopulatedExams", data);
+                    setExamDetails((previous) => [...previous, data]);
                 })
-                .catch((err) => console.error("getExamDetails", err.message));
+                .catch((err) =>
+                    console.error("useGetAllPopulatedExams", err.message)
+                );
         }
 
         if (userId && examIds) {
             examIds.map((examId) => getExamDetails(examId, userId));
         }
     }, [userId, examIds]);
+
+    return examDetails;
+}
+
+/**
+ *
+ * @param {Array[ObjectIds]} examIds
+ * @returns {Array} examDetails
+ */
+export function usePopulatedExams(examIds) {
+    const { _id: userId } = useSelector((state) => state.user);
+    const [examDetails, setExamDetails] = useState([]);
+
+    useEffect(() => {
+        async function getPopulatedExamDetails(examId, userId) {
+            await axios
+                .get(`/api/exam/populate/${examId}/${userId}`)
+                .then((res) => {
+                    const data = res.data;
+                    console.log("res", res.data);
+                    console.log("usePopulatedExams", data);
+                    setExamDetails((previous) => [...previous, data]);
+                })
+                .catch((err) =>
+                    console.error("usePopulatedExams", err.message)
+                );
+        }
+        console.log(
+            "%cusePopulatedExams",
+            "background-color:yellow; color:black"
+        );
+        if (!!userId && !!examIds) {
+            examIds.map((examId) => {
+                console.log(
+                    `%c examId: ${examId} userId: ${userId}`,
+                    "background-color: yellow; color: black"
+                );
+                getPopulatedExamDetails(examId, userId);
+            });
+        }
+    }, [examIds, userId]);
 
     return examDetails;
 }

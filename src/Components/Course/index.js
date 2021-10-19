@@ -1,18 +1,17 @@
 import { useState } from "react";
-
+import { useSelector } from "react-redux";
 import { useGetUser, useGetPopulatedCourses } from "../../customHooks";
 
 import { Button } from "../atoms/button";
 import { CourseForm } from "./courseForm";
 import { ShowCourses } from "./courses";
 
+import { checkRole } from "../../utils/checkRole";
+
 import styles from "./course.module.scss";
 
-export function Course() {
+function CourseInstructorPage() {
     const [isCreateCourseClicked, setIsCreateCourseClicked] = useState(false);
-
-    useGetUser();
-    useGetPopulatedCourses();
 
     return (
         <section className={styles.courseContainer}>
@@ -40,4 +39,28 @@ export function Course() {
             </section>
         </section>
     );
+}
+
+function CourseStudentPage() {
+    return (
+        <section className={styles.courseContainer}>
+            <ShowCourses />
+        </section>
+    );
+}
+
+export function Course() {
+    const { role } = useSelector((state) => state.user);
+
+    useGetUser();
+    useGetPopulatedCourses();
+
+    switch (checkRole(role)) {
+        case "STUDENT":
+            return <CourseStudentPage />;
+        case "INSTRUCTOR":
+            return <CourseInstructorPage />;
+        default:
+            return <>[Error] Check role</>;
+    }
 }

@@ -6,7 +6,7 @@ import styles from "./course.module.scss";
 
 function CourseCard({ course }) {
     const { _id: courseId } = course;
-    const { _id: userId } = useSelector((state) => state.user);
+    const { _id: userId, role } = useSelector((state) => state.user);
 
     async function deleteCourseHandler() {
         await axios
@@ -20,7 +20,11 @@ function CourseCard({ course }) {
     return (
         <article key={course._id} className={styles.courseCard}>
             <h3>{course.course_name}</h3>
-            <Button onClick={deleteCourseHandler}>Delete</Button>
+            {role !== 0 ? (
+                <Button onClick={deleteCourseHandler}>Delete</Button>
+            ) : (
+                ""
+            )}
         </article>
     );
 }
@@ -31,7 +35,7 @@ export function ShowCourses() {
     return (
         <section className={styles.showCoursesSection}>
             {courses.map((course) => {
-                return <CourseCard course={course} />;
+                return <CourseCard key={course._id} course={course} />;
             })}
         </section>
     );

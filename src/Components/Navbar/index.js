@@ -1,11 +1,19 @@
-import { Link } from "react-router-dom";
-import { MyProfileNav } from "../MyProfile/MyProfileNav";
+import { Link, useHistory } from "react-router-dom";
 
+import { Button } from "../atoms/button";
+import { MyProfileNav } from "../MyProfile/MyProfileNav";
 import { navLinks } from "../../utils/navlinks";
 
 import styles from "./navbar.module.scss";
 
 export function Navbar() {
+    const history = useHistory();
+    function logoutHandler() {
+        console.log("logout handler clicked");
+        localStorage.removeItem("jwtToken");
+        history.push("/");
+    }
+
     return (
         <nav className={styles.nav}>
             <p>
@@ -19,6 +27,9 @@ export function Navbar() {
             </p>
             <p>
                 <MyProfileNav />
+            </p>
+            <p>
+                <Button onClick={logoutHandler}>Log out</Button>
             </p>
         </nav>
     );
