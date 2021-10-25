@@ -36,7 +36,7 @@ export function useGetAllQuestionsOfExam(examId) {
 }
 
 /**
- *
+ * Returns the data of single exam
  * @param {ObjectId} examId
  */
 export function useGetExam(examId) {

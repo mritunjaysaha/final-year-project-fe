@@ -12,7 +12,7 @@ import { Navbar } from "./Components/Navbar";
 import { Exam } from "./Components/Exam";
 import { Course } from "./Components/Course";
 import { MyProfile } from "./Components/MyProfile";
-import { ExamPage } from "./Components/ExamPage";
+import { ExamPage } from "./Components/Pages/AttemptPage";
 import { navLinks } from "./utils/navlinks";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URI;
