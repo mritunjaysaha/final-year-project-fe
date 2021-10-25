@@ -20,4 +20,4 @@ export const examSlice = createSlice({
     },
 });
 
-export const { setExam } = examSlice.actions;
+export const { setExam, setQuestions } = examSlice.actions;
