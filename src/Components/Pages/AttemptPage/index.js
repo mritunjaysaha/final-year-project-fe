@@ -31,17 +31,21 @@ export function ExamPage() {
         }
     }
 
-    console.log(
-        "%c[ExamPage] clicked",
-        "background-color: red; color: white; font-weight: bold"
-    );
+    function CurrentQuestion() {
+        const { name, marks } = questions[currentIndex];
+
+        return (
+            <article>
+                <p>{name}</p>
+                <p>{marks}</p>
+            </article>
+        );
+    }
 
     return (
         <>
-            AttemptPage {examId}
-            <p>{questions.length}</p>
-            <p>{currentIndex}</p>
-            <p>{JSON.stringify(questions[currentIndex])}</p>
+            <CurrentQuestion />
+
             <Button name="previous" onClick={handleCurrentIndex}>
                 Previous
             </Button>
