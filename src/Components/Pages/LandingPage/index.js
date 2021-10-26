@@ -1,11 +1,10 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import jwtDecode from "jwt-decode";
-import { setAuth } from "../../reducers/actions";
+import { setAuth } from "../../../reducers/actions";
 
-import { Form } from "../Forms";
-import { FormInput } from "../Forms/formInput";
-import { Button } from "../atoms/button";
+import { Form, FormInput } from "../../Forms";
+import { Button } from "../../atoms/button";
 
 import styles from "./landingPage.module.scss";
 
