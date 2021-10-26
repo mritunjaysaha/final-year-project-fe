@@ -7,13 +7,14 @@ import { setAuth } from "./reducers/actions";
 
 import { setAuthToken } from "./utils/setAuthToken";
 
-import { LandingPage } from "./Components/LandingPage";
 import { Navbar } from "./Components/Navbar";
 import { Exam } from "./Components/Exam";
 import { Course } from "./Components/Course";
 import { MyProfile } from "./Components/MyProfile";
-import { ExamPage } from "./Components/ExamPage";
 import { navLinks } from "./utils/navlinks";
+
+import { ExamPage } from "./Components/Pages/AttemptPage";
+import { LandingPage } from "./Components/Pages/LandingPage";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URI;
 

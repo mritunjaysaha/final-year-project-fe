@@ -127,7 +127,7 @@ function ExamCard({ examData }) {
                     </Button>
                     <Button
                         onClick={() => {
-                            setShowQuestions(true);
+                            setShowQuestions(!showQuestions);
                         }}
                     >
                         Show Questions
@@ -155,8 +155,6 @@ function ExamCard({ examData }) {
             ) : (
                 ""
             )}
-
-            <ShowQuestions questions={questions} />
         </section>
     );
 }

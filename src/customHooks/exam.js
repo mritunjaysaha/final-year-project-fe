@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { setExam } from "../reducers/slices/examSlice";
 /**
  * Get all questions for the examId
  * @param {ObjectId} examId
@@ -36,12 +36,14 @@ export function useGetAllQuestionsOfExam(examId) {
 }
 
 /**
- *
+ * Returns the data of single exam
  * @param {ObjectId} examId
  */
 export function useGetExam(examId) {
     const { _id: userId } = useSelector((state) => state.user);
     const [examData, setExamData] = useState();
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         async function getExam(examId, userId) {
@@ -50,6 +52,7 @@ export function useGetExam(examId) {
                 .then((res) => {
                     console.log("[useGetExam]", res.data);
                     setExamData(res.data);
+                    dispatch(setExam(res.data));
                 })
                 .catch((err) => {
                     console.error("[useGetExam]", err);
@@ -59,7 +62,7 @@ export function useGetExam(examId) {
         if (!!examId) {
             getExam(examId, userId);
         }
-    }, [examId, userId]);
+    }, [examId, userId, dispatch]);
 
     return { examData };
 }
