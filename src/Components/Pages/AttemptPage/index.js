@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { Button } from "../../atoms/button";
-
+import { FormTextarea } from "../../Forms";
 import { useGetExam } from "../../../customHooks";
 
 export function ExamPage() {
@@ -35,10 +35,13 @@ export function ExamPage() {
         const { name, marks } = questions[currentIndex];
 
         return (
-            <article>
-                <p>{name}</p>
-                <p>{marks}</p>
-            </article>
+            <section>
+                <article>
+                    <p>{name}</p>
+                    <p>{marks}</p>
+                </article>
+                <FormTextarea />
+            </section>
         );
     }
 

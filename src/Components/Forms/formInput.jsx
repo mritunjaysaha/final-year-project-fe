@@ -41,32 +41,3 @@ export function FormInput(props) {
         </div>
     );
 }
-
-export function FormTextArea(props) {
-    const {
-        label,
-        type = "text",
-        name,
-        placeholder = "Type here...",
-        ...rest
-    } = props;
-
-    const formContext = useContext(FormContext);
-    const { form, handleFormChange } = formContext;
-
-    return (
-        <div>
-            <textarea
-                name={name}
-                id={name}
-                cols="30"
-                rows="10"
-                type={type}
-                placeholder={placeholder}
-                onChange={handleFormChange}
-                value={form[name]}
-                {...rest}
-            ></textarea>
-        </div>
-    );
-}
