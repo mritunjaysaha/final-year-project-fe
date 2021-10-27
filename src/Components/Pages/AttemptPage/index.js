@@ -32,11 +32,6 @@ export function ExamPage() {
     }
 
     function CurrentQuestion() {
-        console.log(
-            `%cCurrentQuestions: ${!!questions} ${JSON.stringify(questions)}`,
-            "background-color: yellow; color: black"
-        );
-
         const { name, marks } = questions[currentIndex];
 
         return (
@@ -50,7 +45,6 @@ export function ExamPage() {
     return (
         <>
             {!!questions.length ? <CurrentQuestion /> : ""}
-            <textarea />
 
             <div>
                 <Button name="previous" onClick={handleCurrentIndex}>

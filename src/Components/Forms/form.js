@@ -7,13 +7,12 @@ export const FormContext = createContext({ form: {} });
  * @param {children} children
  * @param {submit} submit function to submit the form and send api request
  * @param {Object} initialValues
- * @returns
+ * @returns {Element}
  */
 export function Form(props) {
     const { children, submit = () => {}, initialValues } = props;
 
     const [form, setForm] = useState(initialValues);
-    const [ids, setIds] = useState([]);
 
     const handleFormChange = (event) => {
         const { name, value } = event.target;
