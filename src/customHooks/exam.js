@@ -50,7 +50,6 @@ export function useGetExam(examId) {
             await axios
                 .get(`/api/exam/${examId}/${userId}`)
                 .then((res) => {
-                    console.log("[useGetExam]", res.data);
                     setExamData(res.data);
                     dispatch(setExam(res.data));
                 })

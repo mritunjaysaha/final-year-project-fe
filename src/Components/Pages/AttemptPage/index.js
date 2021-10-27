@@ -32,6 +32,11 @@ export function ExamPage() {
     }
 
     function CurrentQuestion() {
+        console.log(
+            `%cCurrentQuestions: ${!!questions} ${JSON.stringify(questions)}`,
+            "background-color: yellow; color: black"
+        );
+
         const { name, marks } = questions[currentIndex];
 
         return (
@@ -44,14 +49,17 @@ export function ExamPage() {
 
     return (
         <>
-            <CurrentQuestion />
+            {!!questions.length ? <CurrentQuestion /> : ""}
+            <textarea />
 
-            <Button name="previous" onClick={handleCurrentIndex}>
-                Previous
-            </Button>
-            <Button name="next" onClick={handleCurrentIndex}>
-                Next
-            </Button>
+            <div>
+                <Button name="previous" onClick={handleCurrentIndex}>
+                    Previous
+                </Button>
+                <Button name="next" onClick={handleCurrentIndex}>
+                    Next
+                </Button>
+            </div>
         </>
     );
 }
