@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { Button } from "../../atoms/button";
-import { FormTextarea } from "../../Forms";
+import { FormTextarea, Form } from "../../Forms";
 import { useGetExam } from "../../../customHooks";
 
 export function ExamPage() {
@@ -34,13 +34,31 @@ export function ExamPage() {
     function CurrentQuestion() {
         const { name, marks } = questions[currentIndex];
 
+        function handleSubmit(e, form) {
+            e.preventDefault();
+
+            console.log(
+                `%cCurrentQuestion ${JSON.stringify(form)}`,
+                "background-color: yellow; color: black; font-weight:bold"
+            );
+        }
+
+        const initialValues = {
+            answer: "",
+        };
+
         return (
             <section>
                 <article>
                     <p>{name}</p>
                     <p>{marks}</p>
                 </article>
-                <FormTextarea />
+                <Form initialValues={initialValues} submit={handleSubmit}>
+                    <FormTextarea
+                        name="answer"
+                        placeholder="Type your answer here..."
+                    />
+                </Form>
             </section>
         );
     }
