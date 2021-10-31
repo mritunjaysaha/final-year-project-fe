@@ -1,10 +1,62 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 import { Button } from "../../atoms/button";
 import { FormTextarea, Form } from "../../Forms";
 import { useGetExam } from "../../../customHooks";
+
+function CurrentQuestion({ question }) {
+    const { name, marks, _id: questionId } = question;
+    const { _id: userId } = useSelector((state) => state.user);
+    const { _id: examId } = useSelector((state) => state.exam);
+
+    const initialValues = {
+        question: questionId,
+        submitted_by: userId,
+        answer: "",
+    };
+
+    const [submitMessage, setSubmitMessage] = useState();
+
+    async function handleSubmit(e, form) {
+        e.preventDefault();
+
+        console.log(
+            `%cCurrentQuestion ${JSON.stringify(form)}`,
+            "background-color: yellow; color: black; font-weight:bold"
+        );
+
+        await axios
+            .post(`/api/answer/${examId}/${userId}`, form)
+            .then((res) => {
+                console.log("CurrentQuestion: ", res);
+                setSubmitMessage("Successfully Submitted");
+            })
+            .catch((err) => {
+                console.log("CurrentQuestion: ", err.message);
+                setSubmitMessage("Error submitting answer");
+            });
+    }
+
+    return (
+        <section>
+            <article>
+                <p>{name}</p>
+                <p>{marks}</p>
+            </article>
+            <Form initialValues={initialValues} submit={handleSubmit}>
+                <FormTextarea
+                    name="answer"
+                    placeholder="Type your answer here..."
+                />
+                <Button type="submit">Submit</Button>
+            </Form>
+            {submitMessage}
+        </section>
+    );
+}
 
 export function ExamPage() {
     const { examId } = useParams();
@@ -31,41 +83,13 @@ export function ExamPage() {
         }
     }
 
-    function CurrentQuestion() {
-        const { name, marks } = questions[currentIndex];
-
-        function handleSubmit(e, form) {
-            e.preventDefault();
-
-            console.log(
-                `%cCurrentQuestion ${JSON.stringify(form)}`,
-                "background-color: yellow; color: black; font-weight:bold"
-            );
-        }
-
-        const initialValues = {
-            answer: "",
-        };
-
-        return (
-            <section>
-                <article>
-                    <p>{name}</p>
-                    <p>{marks}</p>
-                </article>
-                <Form initialValues={initialValues} submit={handleSubmit}>
-                    <FormTextarea
-                        name="answer"
-                        placeholder="Type your answer here..."
-                    />
-                </Form>
-            </section>
-        );
-    }
-
     return (
         <>
-            {!!questions.length ? <CurrentQuestion /> : ""}
+            {!!questions.length ? (
+                <CurrentQuestion question={questions[currentIndex]} />
+            ) : (
+                ""
+            )}
 
             <div>
                 <Button name="previous" onClick={handleCurrentIndex}>
