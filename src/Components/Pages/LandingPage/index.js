@@ -8,7 +8,7 @@ import { Button } from "../../atoms/button";
 
 import styles from "./landingPage.module.scss";
 
-export function LandingPage() {
+export default function LandingPage() {
     const dispatch = useDispatch();
 
     const initialValues = {

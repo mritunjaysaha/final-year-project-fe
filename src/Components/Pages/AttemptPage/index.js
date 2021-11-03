@@ -58,7 +58,7 @@ function CurrentQuestion({ question }) {
     );
 }
 
-export function ExamPage() {
+export default function ExamPage() {
     const { examId } = useParams();
     const { questions } = useSelector((state) => state.exam);
 
