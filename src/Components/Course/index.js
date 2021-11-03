@@ -49,7 +49,7 @@ function CourseStudentPage() {
     );
 }
 
-export function Course() {
+export default function Course() {
     const { role } = useSelector((state) => state.user);
 
     useGetUser();
