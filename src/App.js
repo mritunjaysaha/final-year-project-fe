@@ -10,18 +10,16 @@ import { setAuthToken } from "./utils/setAuthToken";
 
 import { Navbar } from "./Components/Navbar";
 import { Exam } from "./Components/Exam";
-// import { Course } from "./Components/Course";
 import { MyProfile } from "./Components/MyProfile";
-import { navLinks } from "./utils/navlinks";
-
-// import { ExamPage } from "./Components/Pages/AttemptPage";
-// import { LandingPage } from "./Components/Pages/LandingPage";
+import { navLinks, checkStorage } from "./utils";
 
 const AttemptPage = lazy(() => import("./Components/Pages/AttemptPage"));
 const LandingPage = lazy(() => import("./Components/Pages/LandingPage"));
 const Course = lazy(() => import("./Components/Course"));
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URI;
+
+checkStorage();
 
 if (window.localStorage.jwtToken) {
     const token = localStorage.jwtToken;
