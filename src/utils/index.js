@@ -15,5 +15,9 @@ export async function checkStorage() {
         const remaining = (quota.quota - quota.usage) / Math.pow(2, 30);
 
         console.log(`Remaining storage: ${remaining} GB`);
+
+        // checking if persistance storage is granted
+        const isPersisted = await navigator.storage.persist();
+        console.log(`Persisted storage granted: ${isPersisted}`);
     }
 }
