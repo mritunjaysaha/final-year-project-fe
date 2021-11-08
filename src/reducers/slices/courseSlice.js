@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { get, set } from "idb-keyval";
 
 export const courseSlice = createSlice({
     name: "course",
@@ -7,7 +8,13 @@ export const courseSlice = createSlice({
     },
     reducers: {
         setCourse: (state, { payload }) => {
-            state.courses = payload;
+            if (!payload) {
+                get("courses").then((val) => {
+                    console.log("offline -- courseSlice", { val });
+                    return { courses: val };
+                });
+            }
+            return { courses: payload };
         },
     },
 });

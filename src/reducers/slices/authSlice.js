@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { get } from "idb-keyval";
 
 export const authSlice = createSlice({
     name: "user",
@@ -24,6 +25,16 @@ export const authSlice = createSlice({
         },
 
         setUserData: (state, { payload }) => {
+            if (!payload) {
+                get("user")
+                    .then((val) => {
+                        console.log("offline -- setUserData", val);
+                        return { ...state, ...val };
+                    })
+                    .catch((err) => {
+                        console.log("offline --setUserData", err);
+                    });
+            }
             return { ...state, ...payload };
         },
     },

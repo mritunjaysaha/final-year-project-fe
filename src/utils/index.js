@@ -16,7 +16,7 @@ export async function checkStorage() {
 
         console.log(`Remaining storage: ${remaining} GB`);
 
-        // checking if persistance storage is granted
+        // request for persistent storage
         const isPersisted = await navigator.storage.persist();
         console.log(`Persisted storage granted: ${isPersisted}`);
     }
