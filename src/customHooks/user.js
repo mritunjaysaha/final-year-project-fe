@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserData, setCourse } from "../reducers/actions";
-import { set } from "idb-keyval";
+import { set, get } from "idb-keyval";
 
 export function useGetUser() {
     const dispatch = useDispatch();
@@ -21,6 +21,14 @@ export function useGetUser() {
                     })
                     .catch((err) => {
                         console.error("useGetUser", err.message);
+
+                        get("user")
+                            .then((data) => {
+                                console.log(data);
+
+                                dispatch(setUserData(data));
+                            })
+                            .catch((err) => console.log(err));
                     });
             }
 
