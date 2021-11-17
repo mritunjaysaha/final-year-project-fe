@@ -3,7 +3,7 @@ import {
     useGetAllQuestionsOfExam,
     useGetExam,
     useGetAllPopulatedExams,
-    usePopulatedExams,
+    useGetPopulatedExams,
 } from "./exam";
 import {
     useGetPopulatedCourses,
@@ -14,7 +14,7 @@ export {
     useGetUser,
     useGetPopulatedCourses,
     useGetAllUsers,
-    usePopulatedExams,
+    useGetPopulatedExams,
 };
 export { useGetAllQuestionsOfExam, useGetExam, useGetAllPopulatedExams };
 export { useGetEnrolledStudentsInCourse };

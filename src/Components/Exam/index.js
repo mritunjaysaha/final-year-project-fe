@@ -48,9 +48,8 @@ function StudentExamPage() {
 }
 
 export function Exam() {
-    useGetUser();
-
     const { role } = useSelector((state) => state.user);
+
     switch (checkRole(role)) {
         case "STUDENT":
             return <StudentExamPage />;
