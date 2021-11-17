@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserData, setCourse } from "../reducers/actions";
+import { set, get } from "idb-keyval";
+import { INDEX_DB_VARIABLES } from "../utils";
 
 export function useGetUser() {
     const dispatch = useDispatch();
@@ -14,11 +16,19 @@ export function useGetUser() {
                 await axios
                     .get(`/api/user/${userId}`)
                     .then((res) => {
-                        console.log(res.data);
+                        set(INDEX_DB_VARIABLES.user, res.data);
                         dispatch(setUserData(res.data));
                     })
                     .catch((err) => {
                         console.error("useGetUser", err.message);
+
+                        get(INDEX_DB_VARIABLES.user)
+                            .then((data) => {
+                                console.log(data);
+
+                                dispatch(setUserData(data));
+                            })
+                            .catch((err) => console.log(err));
                     });
             }
 
@@ -33,14 +43,31 @@ export function useGetPopulatedCourses() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        /**
+         *  fetch the data from the backend.
+         *  If offline or error, then fetch the data from indexDB
+         * @param {String} userId -- MongoDB object Id
+         */
         async function getCourses(userId) {
             await axios
                 .get(`/api/user/populated-courses/${userId}`)
                 .then((res) => {
                     dispatch(setCourse(res.data));
+                    set(INDEX_DB_VARIABLES.course, res.data);
                 })
                 .catch((err) => {
                     console.error("useGetPopulatedCourses", err.message);
+
+                    get(INDEX_DB_VARIABLES.course)
+                        .then((data) => {
+                            console.log("course", data);
+                        })
+                        .catch((err) => {
+                            console.error(
+                                "useGetPopulatedCourses",
+                                err.message
+                            );
+                        });
                 });
         }
 

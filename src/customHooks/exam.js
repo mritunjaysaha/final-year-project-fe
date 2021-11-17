@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
+import { set, get } from "idb-keyval";
+
 import { setExam } from "../reducers/slices/examSlice";
+import { INDEX_DB_VARIABLES } from "../utils";
+
 /**
  * Get all questions for the examId
  * @param {ObjectId} examId
@@ -37,11 +41,9 @@ export function useGetAllQuestionsOfExam(examId) {
 
 /**
  * Returns the data of single exam
- * @param {ObjectId} examId
  */
 export function useGetExam(examId) {
     const { _id: userId } = useSelector((state) => state.user);
-    const [examData, setExamData] = useState();
 
     const dispatch = useDispatch();
 
@@ -50,11 +52,19 @@ export function useGetExam(examId) {
             await axios
                 .get(`/api/exam/${examId}/${userId}`)
                 .then((res) => {
-                    setExamData(res.data);
                     dispatch(setExam(res.data));
+                    set(INDEX_DB_VARIABLES.exam, res.data);
                 })
                 .catch((err) => {
                     console.error("[useGetExam]", err);
+
+                    get(INDEX_DB_VARIABLES.exam)
+                        .then((data) => {
+                            console.log("[useGetExam]", data);
+                        })
+                        .catch((err) =>
+                            console.error("[useGetExam]", err.message)
+                        );
                 });
         }
 
@@ -62,8 +72,6 @@ export function useGetExam(examId) {
             getExam(examId, userId);
         }
     }, [examId, userId, dispatch]);
-
-    return { examData };
 }
 
 /**
@@ -93,32 +101,40 @@ export function useGetAllPopulatedExams(examIds) {
             examIds.map((examId) => getExamDetails(examId, userId));
         }
     }, [userId, examIds]);
-
-    return examDetails;
 }
 
 /**
  *
- * @param {Array[ObjectIds]} examIds
- * @returns {Array} examDetails
+ * @param {ObjectIds[]} examIds
  */
 export function usePopulatedExams(examIds) {
+    console.log("[usePopulatedExams]", examIds);
     const { _id: userId } = useSelector((state) => state.user);
     const [examDetails, setExamDetails] = useState([]);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         async function getPopulatedExamDetails(examId, userId) {
             await axios
                 .get(`/api/exam/populate/${examId}/${userId}`)
                 .then((res) => {
-                    const data = res.data;
-                    console.log("res", res.data);
-                    console.log("usePopulatedExams", data);
-                    setExamDetails((previous) => [...previous, data]);
+                    console.log("usePopulatedExams", res.data);
+                    setExamDetails((previous) => [...previous, res.data]);
+
+                    dispatch(setExam(res.data));
                 })
-                .catch((err) =>
-                    console.error("usePopulatedExams", err.message)
-                );
+                .catch((err) => {
+                    console.error("usePopulatedExams", err.message);
+
+                    get(INDEX_DB_VARIABLES.exam)
+                        .then((data) => dispatch(setExam(data)))
+                        .catch((err) =>
+                            console.error(
+                                "[usePopulatedExams] idb",
+                                err.message
+                            )
+                        );
+                });
         }
         console.log(
             "%cusePopulatedExams",
@@ -133,7 +149,15 @@ export function usePopulatedExams(examIds) {
                 getPopulatedExamDetails(examId, userId);
             });
         }
-    }, [examIds, userId]);
+    }, [examIds, userId, dispatch]);
 
-    return examDetails;
+    console.log({ examDetails });
+
+    useEffect(() => {
+        console.log(examDetails);
+        if (!examDetails.length) {
+            return;
+        }
+        set(INDEX_DB_VARIABLES.exam, examDetails);
+    }, [examDetails]);
 }

@@ -23,7 +23,7 @@ import styles from "./exam.module.scss";
 
 /**
  *
- * @param {Array} examData
+ * @param {String[]} examData
  * @returns {Element}
  */
 function ExamCard({ examData }) {
@@ -79,6 +79,7 @@ function ExamCard({ examData }) {
         updateExam({ students }, examId, userId);
     }
 
+    return <>Exam Card</>;
     return (
         <section className={styles.examCardSection}>
             <Form initialValues={initialValues} submit={submitHandler}>
@@ -171,29 +172,30 @@ export function ShowExams() {
         "background-color: yellow; color: black"
     );
 
-    const examDetails = useGetAllPopulatedExams(exams);
+    useGetAllPopulatedExams(exams);
 
-    if (examDetails.length) {
-        return (
-            <>
-                {examDetails.map((examData) => (
-                    <ExamCard
-                        key={examData._id}
-                        examData={examData}
-                        role={role}
-                    />
-                ))}
-            </>
-        );
-    }
+    // if (examDetails.length) {
+    //     return (
+    //         <>
+    //             {examDetails.map((examData) => (
+    //                 <ExamCard
+    //                     key={examData._id}
+    //                     examData={examData}
+    //                     role={role}
+    //                 />
+    //             ))}
+    //         </>
+    //     );
+    // }
 
     return (
         <>
-            {examDetails.length
+            {/* {examDetails.length
                 ? examDetails.map((examData) => (
                       <ExamCard key={examData._id} examData={examData} />
                   ))
-                : ""}
+                : ""} */}
+            Exam Page
         </>
     );
 }
@@ -241,15 +243,17 @@ StudentExamCard.propTypes = {
 export function ShowStudentExams() {
     const { exams } = useSelector((state) => state.user);
 
-    const examDetails = usePopulatedExams(exams);
+    usePopulatedExams(exams);
+
+    return <>Show Student Exams</>;
 
     return (
         <>
-            {examDetails.length
+            {/* {examDetails.length
                 ? examDetails.map((examData) => (
                       <StudentExamCard key={examData._id} examData={examData} />
                   ))
-                : ""}
+                : ""} */}
         </>
     );
 }

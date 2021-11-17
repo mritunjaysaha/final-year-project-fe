@@ -2,12 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const courseSlice = createSlice({
     name: "course",
-    initialState: {
-        courses: [],
-    },
+    initialState: { courses: [] },
     reducers: {
         setCourse: (state, { payload }) => {
-            state.courses = payload;
+            return { ...state, courses: payload };
         },
     },
 });
