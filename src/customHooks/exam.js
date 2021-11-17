@@ -151,8 +151,6 @@ export function usePopulatedExams(examIds) {
         }
     }, [examIds, userId, dispatch]);
 
-    console.log({ examDetails });
-
     useEffect(() => {
         console.log(examDetails);
         if (!examDetails.length) {

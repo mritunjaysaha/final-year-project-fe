@@ -1,11 +1,14 @@
-import { useGetUser, useGetPopulatedCourses, useGetAllUsers } from "./user";
+import { useGetUser, useGetAllUsers } from "./user";
 import {
     useGetAllQuestionsOfExam,
     useGetExam,
     useGetAllPopulatedExams,
     usePopulatedExams,
 } from "./exam";
-import { useGetEnrolledStudentsInCourse } from "./course";
+import {
+    useGetPopulatedCourses,
+    useGetEnrolledStudentsInCourse,
+} from "./course";
 
 export {
     useGetUser,
