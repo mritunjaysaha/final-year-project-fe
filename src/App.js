@@ -12,6 +12,11 @@ import { Navbar } from "./Components/Navbar";
 import { Exam } from "./Components/Exam";
 import { MyProfile } from "./Components/MyProfile";
 import { navLinks, checkStorage } from "./utils";
+import {
+    useGetUser,
+    useGetPopulatedCourses,
+    useGetPopulatedExams,
+} from "./customHooks";
 
 const AttemptPage = lazy(() => import("./Components/Pages/AttemptPage"));
 const LandingPage = lazy(() => import("./Components/Pages/LandingPage"));
@@ -35,6 +40,10 @@ if (window.localStorage.jwtToken) {
 }
 
 function App() {
+    useGetUser();
+    useGetPopulatedCourses();
+    useGetPopulatedExams();
+
     return (
         <>
             <BrowserRouter>

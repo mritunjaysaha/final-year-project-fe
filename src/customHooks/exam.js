@@ -107,11 +107,12 @@ export function useGetAllPopulatedExams(examIds) {
  *
  * @param {ObjectIds[]} examIds
  */
-export function usePopulatedExams(examIds) {
-    console.log("[usePopulatedExams]", examIds);
-    const { _id: userId } = useSelector((state) => state.user);
+export function useGetPopulatedExams() {
+    const { _id: userId, exams } = useSelector((state) => state.user);
     const [examDetails, setExamDetails] = useState([]);
     const dispatch = useDispatch();
+
+    console.log("[usePopulatedExams]", exams);
 
     useEffect(() => {
         async function getPopulatedExamDetails(examId, userId) {
@@ -140,8 +141,8 @@ export function usePopulatedExams(examIds) {
             "%cusePopulatedExams",
             "background-color:yellow; color:black"
         );
-        if (!!userId && !!examIds) {
-            examIds.map((examId) => {
+        if (!!userId && !!exams) {
+            exams.map((examId) => {
                 console.log(
                     `%c examId: ${examId} userId: ${userId}`,
                     "background-color: yellow; color: black"
@@ -149,9 +150,7 @@ export function usePopulatedExams(examIds) {
                 getPopulatedExamDetails(examId, userId);
             });
         }
-    }, [examIds, userId, dispatch]);
-
-    console.log({ examDetails });
+    }, [exams, userId, dispatch]);
 
     useEffect(() => {
         console.log(examDetails);

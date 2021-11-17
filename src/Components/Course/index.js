@@ -52,8 +52,8 @@ function CourseStudentPage() {
 export default function Course() {
     const { role } = useSelector((state) => state.user);
 
-    useGetUser();
-    useGetPopulatedCourses();
+    // useGetUser();
+    // useGetPopulatedCourses();
 
     switch (checkRole(role)) {
         case "STUDENT":

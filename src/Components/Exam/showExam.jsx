@@ -5,10 +5,7 @@ import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import {
     useGetAllQuestionsOfExam,
-    useGetExam,
     useGetEnrolledStudentsInCourse,
-    useGetAllPopulatedExams,
-    usePopulatedExams,
 } from "../../customHooks";
 import { Form, FormInput, SelectInput } from "../Forms";
 import { Button } from "../atoms/button";
@@ -172,8 +169,6 @@ export function ShowExams() {
         "background-color: yellow; color: black"
     );
 
-    useGetAllPopulatedExams(exams);
-
     // if (examDetails.length) {
     //     return (
     //         <>
@@ -241,10 +236,6 @@ StudentExamCard.propTypes = {
 };
 
 export function ShowStudentExams() {
-    const { exams } = useSelector((state) => state.user);
-
-    usePopulatedExams(exams);
-
     return <>Show Student Exams</>;
 
     return (
