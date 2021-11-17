@@ -1,9 +1,9 @@
 import { navLinks } from "./navlinks";
 import { setAuthToken } from "./setAuthToken";
 import { checkRole } from "./checkRole";
-import { indexDBVariables } from "./indexDBVariables";
+import { INDEX_DB_VARIABLES } from "./indexDBVariables";
 
-export { navLinks, indexDBVariables };
+export { navLinks, INDEX_DB_VARIABLES };
 export { setAuthToken, checkRole };
 
 export async function checkStorage() {

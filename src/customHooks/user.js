@@ -3,7 +3,7 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserData, setCourse } from "../reducers/actions";
 import { set, get } from "idb-keyval";
-import { indexDBVariables } from "../utils";
+import { INDEX_DB_VARIABLES } from "../utils";
 
 export function useGetUser() {
     const dispatch = useDispatch();
@@ -16,14 +16,13 @@ export function useGetUser() {
                 await axios
                     .get(`/api/user/${userId}`)
                     .then((res) => {
-                        console.log(res.data);
-                        set("user", res.data);
+                        set(INDEX_DB_VARIABLES.user, res.data);
                         dispatch(setUserData(res.data));
                     })
                     .catch((err) => {
                         console.error("useGetUser", err.message);
 
-                        get("user")
+                        get(INDEX_DB_VARIABLES.user)
                             .then((data) => {
                                 console.log(data);
 
@@ -54,12 +53,12 @@ export function useGetPopulatedCourses() {
                 .get(`/api/user/populated-courses/${userId}`)
                 .then((res) => {
                     dispatch(setCourse(res.data));
-                    set(indexDBVariables.course, res.data);
+                    set(INDEX_DB_VARIABLES.course, res.data);
                 })
                 .catch((err) => {
                     console.error("useGetPopulatedCourses", err.message);
 
-                    get(indexDBVariables.course)
+                    get(INDEX_DB_VARIABLES.course)
                         .then((data) => {
                             console.log("course", data);
                         })

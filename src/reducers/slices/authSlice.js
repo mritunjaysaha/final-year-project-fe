@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { get } from "idb-keyval";
 
 export const authSlice = createSlice({
     name: "user",
