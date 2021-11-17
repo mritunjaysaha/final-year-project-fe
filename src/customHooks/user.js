@@ -3,6 +3,7 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserData, setCourse } from "../reducers/actions";
 import { set, get } from "idb-keyval";
+import { indexDBVariables } from "../utils";
 
 export function useGetUser() {
     const dispatch = useDispatch();
@@ -43,16 +44,31 @@ export function useGetPopulatedCourses() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        /**
+         *  fetch the data from the backend.
+         *  If offline or error, then fetch the data from indexDB
+         * @param {String} userId -- MongoDB object Id
+         */
         async function getCourses(userId) {
             await axios
                 .get(`/api/user/populated-courses/${userId}`)
                 .then((res) => {
-                    set("courses", res.data);
-
                     dispatch(setCourse(res.data));
+                    set(indexDBVariables.course, res.data);
                 })
                 .catch((err) => {
                     console.error("useGetPopulatedCourses", err.message);
+
+                    get(indexDBVariables.course)
+                        .then((data) => {
+                            console.log("course", data);
+                        })
+                        .catch((err) => {
+                            console.error(
+                                "useGetPopulatedCourses",
+                                err.message
+                            );
+                        });
                 });
         }
 
