@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import { Button } from "../../atoms/button";
 import { ExamForm, ShowExams, ShowStudentExams } from "../../Exam";
-import { checkRole } from "../../utils";
+import { checkRole } from "../../../utils";
 
 import styles from "../../Exam/exam.module.scss";
 

@@ -1,4 +1,4 @@
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Button } from "../atoms/button";
 import { MyProfileNav } from "../MyProfile/MyProfileNav";
@@ -7,11 +7,12 @@ import { navLinks } from "../../utils/navlinks";
 import styles from "./navbar.module.scss";
 
 export function Navbar() {
-    const history = useHistory();
+    const navigate = useNavigate();
+
     function logoutHandler() {
         console.log("logout handler clicked");
         localStorage.removeItem("jwtToken");
-        history.push("/");
+        navigate(navLinks.home);
     }
 
     return (
