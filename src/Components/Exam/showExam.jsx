@@ -76,7 +76,6 @@ function ExamCard({ examData }) {
         updateExam({ students }, examId, userId);
     }
 
-    return <>Exam Card</>;
     return (
         <section className={styles.examCardSection}>
             <Form initialValues={initialValues} submit={submitHandler}>
@@ -236,15 +235,15 @@ StudentExamCard.propTypes = {
 };
 
 export function ShowStudentExams() {
-    return <>Show Student Exams</>;
+    const { exams } = useSelector((state) => state.exam);
 
     return (
         <>
-            {/* {examDetails.length
-                ? examDetails.map((examData) => (
+            {exams.length
+                ? exams.map((examData) => (
                       <StudentExamCard key={examData._id} examData={examData} />
                   ))
-                : ""} */}
+                : ""}
         </>
     );
 }
