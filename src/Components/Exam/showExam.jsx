@@ -161,7 +161,7 @@ ExamCard.propTypes = {
 };
 
 export function ShowExams() {
-    const { exams } = useSelector((state) => state.user);
+    const { exams, role } = useSelector((state) => state.user);
 
     console.log(
         `%cexams ${JSON.stringify(exams)}`,

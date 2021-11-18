@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { store } from "./app/store";
 import { setAuth } from "./reducers/actions";
@@ -9,6 +9,7 @@ import { setAuth } from "./reducers/actions";
 import { setAuthToken } from "./utils/setAuthToken";
 
 import { Navbar } from "./Components/Navbar";
+import { Exam } from "./Components/Exam";
 import { MyProfile } from "./Components/MyProfile";
 import { navLinks, checkStorage } from "./utils";
 import {
@@ -20,7 +21,6 @@ import {
 const AttemptPage = lazy(() => import("./Components/Pages/AttemptPage"));
 const LandingPage = lazy(() => import("./Components/Pages/LandingPage"));
 const Course = lazy(() => import("./Components/Course"));
-const Exam = lazy(() => import("./Components/Pages/ExamPage"));
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URI;
 
@@ -49,30 +49,30 @@ function App() {
             <BrowserRouter>
                 <Navbar />
                 <Suspense fallback={<div>Loading...</div>}>
-                    <Routes>
+                    <Switch>
                         <Route
                             exact
                             path={navLinks.home}
-                            element={<LandingPage />}
+                            component={LandingPage}
                         />
                         {/* TODO: Exam Route [Protected route] */}
                         <Route
                             exact
                             path={navLinks.course}
-                            element={<Course />}
+                            component={Course}
                         />
-                        <Route exact path={navLinks.exam} element={<Exam />} />
+                        <Route exact path={navLinks.exam} component={Exam} />
                         <Route
                             exact
                             path={navLinks.myProfile}
-                            element={<MyProfile />}
+                            component={MyProfile}
                         />
                         <Route
                             exact
                             path={`/attempt/:examId`}
-                            element={<AttemptPage />}
+                            component={AttemptPage}
                         />
-                    </Routes>
+                    </Switch>
                 </Suspense>
             </BrowserRouter>
         </>
