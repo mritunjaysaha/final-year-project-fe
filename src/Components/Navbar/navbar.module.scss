@@ -1,0 +1,28 @@
+@import "../../styles/abstract/mixins.scss";
+@import "../../styles/abstract/variables.scss";
+
+.nav {
+    background-color: $veryLightGrey;
+
+    width: 100vw;
+
+    display: flex;
+    justify-content: center;
+
+    border-bottom: 1px solid $border-color-alpha;
+
+    p {
+        display: grid;
+        place-items: center;
+
+        height: 6.4rem;
+
+        padding: 0 2rem;
+
+        margin-right: 2rem;
+
+        &:last-of-type {
+            margin-right: 0;
+        }
+    }
+}

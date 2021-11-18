@@ -1,8 +1,31 @@
 // colors
+$white: #fafafa;
 $black: #131415;
+
+$grey: #263238;
+$lightGrey: #696e74;
+$lightGrey1: #dce0e2;
+$veryLightGrey: #f5f6f8;
+
+$red: #ff1731;
 
 // text color
 $text-color-alpha: $black;
+$text-color-beta: $white;
+
+// border-color
+$border-color-alpha: $lightGrey1;
+
+// border radius
+$border-radius-04: 0.4rem;
+$border-radius-08: 0.8rem;
+$border-radius-12: 1.2rem;
+$border-radius-16: 1.6rem;
+
+$border-radius-small: $border-radius-04;
+$border-radius-alpha: $border-radius-08;
+$border-color-beta: $border-radius-12;
+$border-color-gamma: $border-radius-16;
 
 // font family
 $ffKarla: "Karla", sans-serif;

@@ -1,0 +1,35 @@
+@import "../../styles/imports.scss";
+
+.textarea {
+    width: 100%;
+}
+
+.formInputContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    div {
+        width: max-content;
+        display: flex;
+        justify-content: center;
+
+        input {
+            margin-right: 1rem;
+            border: none;
+            border-bottom: 0.2rem solid $lightGrey1;
+            min-width: 8rem;
+
+            &:focus {
+                outline: none;
+                border-bottom: 0.2rem solid red;
+            }
+        }
+    }
+}
+
+.icon {
+    color: #bec1c3;
+
+    width: 2rem;
+}

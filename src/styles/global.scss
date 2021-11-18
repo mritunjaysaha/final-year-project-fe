@@ -7,22 +7,25 @@
 *,
 *::after,
 *::before {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
     text-decoration: none;
     list-style: none;
+
+    margin: 0;
+    padding: 0;
 }
 
 html {
     font-size: 62.5%;
     scroll-behavior: smooth;
+    box-sizing: border-box;
 }
 
 body {
     font-family: $ffAlpha;
     font-size: $fs14;
     color: $text-color-alpha;
+    overflow-x: hidden;
 
     @include breakpoint(tablet) {
         font-size: $fs16;
@@ -31,6 +34,7 @@ body {
 
 button {
     cursor: pointer;
+    border: none;
 }
 
 a {

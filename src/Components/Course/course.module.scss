@@ -1,0 +1,24 @@
+@import "../../styles/imports.scss";
+
+.courseContainer {
+    height: 100vh;
+
+    margin: 6rem 12rem 0 12rem;
+}
+
+.courseFormContainer {
+    margin-top: 6rem;
+}
+
+.showCoursesSection {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 2rem;
+}
+
+.courseCard {
+    height: 10rem;
+
+    padding: 2rem 0;
+}

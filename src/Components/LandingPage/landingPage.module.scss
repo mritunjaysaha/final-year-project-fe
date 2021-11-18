@@ -1,0 +1,36 @@
+@import "../../styles/abstract/mixins.scss";
+@import "../../styles/abstract/variables.scss";
+
+.landingPageSection {
+    display: flex;
+    justify-content: center;
+
+    width: 100vw;
+    height: 100vh;
+}
+
+.landingPageFormContainer {
+    background-color: $veryLightGrey;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    width: 36rem;
+    height: max-content;
+
+    padding: 2rem 4rem;
+    margin-top: 18rem;
+
+    border-radius: $border-radius-alpha;
+
+    border: 0.1rem solid $border-color-alpha;
+
+    .inputContainer {
+        margin-bottom: 1.2rem;
+
+        input {
+            margin-bottom: 1.2rem;
+        }
+    }
+}

@@ -1,18 +1,29 @@
-import RNImageToPdf from "react-native-image-to-pdf";
+import React from 'react';
+import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
-export default base64Arr => {
-  // It is a promise based function
-  // Create an array containing the path of each base64 images
-  let base64Paths = [C:\Users\SAINPHYRNAI\Documents\GitHub\final-year-project-fe\src\Images\download.jfifC:\Users\SAINPHYRNAI\Documents\GitHub\final-year-project-fe\src\Images\untitled.png, C:\Users\SAINPHYRNAI\Documents\GitHub\final-year-project-fe\src\Images\untitled.png]
-  base64Paths.length = 0; // re-initialize the array for further re-use
+// Create styles
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: 'row',
+    backgroundColor: '#E4E4E4'
+  },
+  section: {
+    margin: 10,
+    padding: 10,
+    flexGrow: 1
+  }
+});
 
-  base64Arr.forEach(base64 => {
-    base64Paths.push(`data:image/jpeg;base64,${base64}`);
-  });
-
-  // Convert base64 images to pdf from the paths array
-  return RNImageToPdf.createPDFbyImages({
-    imagePaths: base64Paths,
-    name: "PDF_Name"
-  });
-};
+// Create Document Component
+const MyDocument = () => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+      <View style={styles.section}>
+        <Text>Section #1</Text>
+      </View>
+      <View style={styles.section}>
+        <Text>Section #2</Text>
+      </View>
+    </Page>
+  </Document>
+);
