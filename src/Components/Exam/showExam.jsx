@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link, useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import {
@@ -161,7 +161,7 @@ ExamCard.propTypes = {
 };
 
 export function ShowExams() {
-    const { exams, role } = useSelector((state) => state.user);
+    const { exams } = useSelector((state) => state.user);
 
     console.log(
         `%cexams ${JSON.stringify(exams)}`,
@@ -194,7 +194,7 @@ export function ShowExams() {
     );
 }
 function StudentExamCard({ examData }) {
-    const history = useHistory();
+    const navigate = useNavigate();
     const {
         _id: examId,
         name,
@@ -212,7 +212,7 @@ function StudentExamCard({ examData }) {
             "%c[attemptHandler] clicked",
             "background-color: red; color: white; font-weight: bold"
         );
-        history.push(`${navLinks.attempt}/${examId}`);
+        navigate(`${navLinks.attempt}/${examId}`);
     }
     return (
         <article className={styles.studentExamCard}>
