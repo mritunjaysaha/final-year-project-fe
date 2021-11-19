@@ -7,7 +7,8 @@ export function MyProfile() {
 
     return (
         <>
-            My Profile
+           
+            
             {/* first_name ----- last_name*/}
             {/* username */}
             {/* email */}

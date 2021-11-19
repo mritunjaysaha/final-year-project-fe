@@ -17,10 +17,16 @@ import {
     useGetPopulatedExams,
 } from "./customHooks";
 
+<<<<<<< HEAD
 const AttemptPage = lazy(() => import("./Components/Pages/AttemptPage"));
 const LandingPage = lazy(() => import("./Components/Pages/LandingPage"));
 const Course = lazy(() => import("./Components/Course"));
 const Exam = lazy(() => import("./Components/Pages/ExamPage"));
+=======
+
+import { navLinks } from "./utils/navlinks";
+>>>>>>> c239d94f708283095c8638ff4516ed12614162b9
+
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URI;
 
@@ -48,6 +54,7 @@ function App() {
         <>
             <BrowserRouter>
                 <Navbar />
+<<<<<<< HEAD
                 <Suspense fallback={<div>Loading...</div>}>
                     <Routes>
                         <Route
@@ -74,6 +81,21 @@ function App() {
                         />
                     </Routes>
                 </Suspense>
+=======
+
+                <Switch>
+                    <Route exact path={navLinks.home} component={LandingPage} />
+                    {/* TODO: Exam Route [Protected route] */}
+                    <Route exact path={navLinks.course} component={Course} />
+                    <Route exact path={navLinks.exam} component={Exam} />
+                    <Route
+                        exact
+                        path={navLinks.myProfile}
+                        component={MyProfile}
+                    />
+                   
+                </Switch>
+>>>>>>> c239d94f708283095c8638ff4516ed12614162b9
             </BrowserRouter>
         </>
     );
