@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -58,13 +58,11 @@ function CurrentQuestion({ question }) {
     );
 }
 
-export default function ExamPage() {
+export default function AttemptPage() {
+    const { exams } = useSelector((state) => state.exam);
     const { examId } = useParams();
-    const { questions } = useSelector((state) => state.exam);
-
+    const [questions, setQuestions] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
-
-    useGetExam(examId);
 
     function handleCurrentIndex(e) {
         const { name } = e.target;
@@ -82,6 +80,14 @@ export default function ExamPage() {
                 return;
         }
     }
+
+    useEffect(() => {
+        exams.map(({ _id, questions }) => {
+            if (_id === examId) {
+                setQuestions(questions);
+            }
+        });
+    }, [examId, exams]);
 
     return (
         <>
