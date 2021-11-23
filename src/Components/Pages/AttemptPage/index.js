@@ -89,8 +89,6 @@ export default function AttemptPage() {
         });
     }, [examId, exams]);
 
-    return <>{JSON.stringify(examId)}</>;
-
     return (
         <>
             {!!questions.length ? (
