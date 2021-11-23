@@ -212,7 +212,9 @@ function StudentExamCard({ examData }) {
             "%c[attemptHandler] clicked",
             "background-color: red; color: white; font-weight: bold"
         );
-        navigate(`${navLinks.attempt}/${examId}`);
+        navigate(`${navLinks.attempt}/${examId}`, {
+            state: { examId: examId },
+        });
     }
     return (
         <article className={styles.studentExamCard}>

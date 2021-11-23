@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-import { Button } from "../atoms/button";
+import { Button } from "../../atoms/button";
 import { ShowCourses, CourseForm } from "../../Course";
 import { checkRole } from "../../../utils";
 

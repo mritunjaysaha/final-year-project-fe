@@ -19,7 +19,7 @@ import {
 
 const AttemptPage = lazy(() => import("./Components/Pages/AttemptPage"));
 const LandingPage = lazy(() => import("./Components/Pages/LandingPage"));
-const Course = lazy(() => import("./Components/Course"));
+const Course = lazy(() => import("./Components/Pages/CoursePage"));
 const Exam = lazy(() => import("./Components/Pages/ExamPage"));
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URI;
