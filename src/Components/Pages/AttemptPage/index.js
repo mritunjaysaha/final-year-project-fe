@@ -5,8 +5,7 @@ import axios from "axios";
 
 import { Button } from "../../atoms/button";
 import { FormTextarea, Form } from "../../Forms";
-import { useGetExam } from "../../../customHooks";
-import { set } from "idb-keyval";
+import { get, set } from "idb-keyval";
 
 function CurrentQuestion({ question }) {
     const { name, marks, _id: questionId } = question;
@@ -41,6 +40,21 @@ function CurrentQuestion({ question }) {
             .catch((err) => {
                 console.log("CurrentQuestion: ", err.message);
                 setSubmitMessage("Error submitting answer");
+
+                get("SCHEDULE_REQUEST")
+                    .then((data) => {
+                        data.push(request);
+
+                        set("SCHEDULE_REQUEST", data);
+                    })
+                    .catch((err) => {
+                        console.error(
+                            "[CurrentQuestion] SCHEDULE REQUESTS DOESN'T EXIST",
+                            err.message
+                        );
+
+                        set("SCHEDULE_REQUEST", request);
+                    });
             });
     }
 
