@@ -6,6 +6,7 @@ import axios from "axios";
 import { Button } from "../../atoms/button";
 import { FormTextarea, Form } from "../../Forms";
 import { useGetExam } from "../../../customHooks";
+import { set } from "idb-keyval";
 
 function CurrentQuestion({ question }) {
     const { name, marks, _id: questionId } = question;
@@ -22,6 +23,9 @@ function CurrentQuestion({ question }) {
 
     async function handleSubmit(e, form) {
         e.preventDefault();
+        const request = [
+            { url: `/api/answer/${examId}/${userId}`, data: form },
+        ];
 
         console.log(
             `%cCurrentQuestion ${JSON.stringify(form)}`,
@@ -29,7 +33,7 @@ function CurrentQuestion({ question }) {
         );
 
         await axios
-            .post(`/api/answer/${examId}/${userId}`, form)
+            .post(request.url, request.data)
             .then((res) => {
                 console.log("CurrentQuestion: ", res);
                 setSubmitMessage("Successfully Submitted");
