@@ -15,6 +15,7 @@ import {
     useGetUser,
     useGetPopulatedCourses,
     useGetPopulatedExams,
+    useScheduleRequests,
 } from "./customHooks";
 
 const AttemptPage = lazy(() => import("./Components/Pages/AttemptPage"));
@@ -43,6 +44,7 @@ function App() {
     useGetUser();
     useGetPopulatedCourses();
     useGetPopulatedExams();
+    useScheduleRequests();
 
     return (
         <>

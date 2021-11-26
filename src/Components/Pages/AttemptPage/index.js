@@ -10,7 +10,22 @@ import { get, set } from "idb-keyval";
 function CurrentQuestion({ question }) {
     const { name, marks, _id: questionId } = question;
     const { _id: userId } = useSelector((state) => state.user);
-    const { _id: examId } = useSelector((state) => state.exam);
+
+    const { examId } = useParams();
+
+    console.log("[CurrentQuestion]", { examId });
+
+    const [scheduledData, setScheduledData] = useState([]);
+    const CONST = "SCHEDULE_REQUEST";
+    useEffect(() => {
+        get(CONST)
+            .then((data) => {
+                console.log("[CurrentQuestion]", { data });
+            })
+            .catch((err) => {
+                console.error("[CurrentQuestion]", err.message);
+            });
+    }, []);
 
     const initialValues = {
         question: questionId,
@@ -31,6 +46,8 @@ function CurrentQuestion({ question }) {
             "background-color: yellow; color: black; font-weight:bold"
         );
 
+        const delayRequest = [...scheduledData, request];
+
         await axios
             .post(request.url, request.data)
             .then((res) => {
@@ -41,20 +58,16 @@ function CurrentQuestion({ question }) {
                 console.log("CurrentQuestion: ", err.message);
                 setSubmitMessage("Error submitting answer");
 
-                get("SCHEDULE_REQUEST")
-                    .then((data) => {
-                        data.push(request);
-
-                        set("SCHEDULE_REQUEST", data);
-                    })
-                    .catch((err) => {
+                set("SCHEDULE_REQUEST", delayRequest)
+                    .then((data) =>
+                        console.log("SUCCESSFULLY SCHEDULED REQUESTS", data)
+                    )
+                    .catch((err) =>
                         console.error(
-                            "[CurrentQuestion] SCHEDULE REQUESTS DOESN'T EXIST",
+                            "FAILED TO SCHEDULE REQUESTS",
                             err.message
-                        );
-
-                        set("SCHEDULE_REQUEST", request);
-                    });
+                        )
+                    );
             });
     }
 

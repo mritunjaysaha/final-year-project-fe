@@ -10,6 +10,8 @@ import {
     useGetEnrolledStudentsInCourse,
 } from "./course";
 
+import { useScheduleRequests } from "./scheduleRequests";
+
 export {
     useGetUser,
     useGetPopulatedCourses,
@@ -18,3 +20,4 @@ export {
 };
 export { useGetAllQuestionsOfExam, useGetExam, useGetAllPopulatedExams };
 export { useGetEnrolledStudentsInCourse };
+export { useScheduleRequests };
