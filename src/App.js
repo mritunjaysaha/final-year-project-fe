@@ -44,7 +44,7 @@ function App() {
     useGetUser();
     useGetPopulatedCourses();
     useGetPopulatedExams();
-    useScheduleRequests();
+    // useScheduleRequests();
 
     return (
         <>
