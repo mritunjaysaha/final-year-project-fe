@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { get } from "idb-keyval";
+import { get, set } from "idb-keyval";
 import axios from "axios";
 
 export function useScheduleRequests() {
@@ -33,6 +33,10 @@ export function useScheduleRequests() {
                 .then((res) => {
                     console.log("[useScheduleRequests] Successfully sent", res);
                     // console.log("[useScheduleRequests] post", res);
+
+                    setRequests((prev) => {
+                        return prev.filter((p) => p.url !== url);
+                    });
                 })
                 .catch((err) =>
                     console.error(
@@ -47,5 +51,9 @@ export function useScheduleRequests() {
                 postPendingRequests(url, data);
             });
         }
+    }, [requests]);
+
+    useEffect(() => {
+        set("SCHEDULE_REQUEST", requests);
     }, [requests]);
 }

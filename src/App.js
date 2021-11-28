@@ -37,6 +37,9 @@ if (window.localStorage.jwtToken) {
     const currentTime = Date.now() / 1000;
 
     if (decoded.exp < currentTime) {
+        /**
+         * remove token and redirect to login page
+         */
     }
 }
 
@@ -44,7 +47,7 @@ function App() {
     useGetUser();
     useGetPopulatedCourses();
     useGetPopulatedExams();
-    // useScheduleRequests();
+    useScheduleRequests();
 
     return (
         <>

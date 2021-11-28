@@ -60,16 +60,16 @@ function CurrentQuestion({ question }) {
 
                 console.log("[CurrentQuestion]", delayRequest);
 
-                // set("SCHEDULE_REQUEST", delayRequest)
-                //     .then((data) =>
-                //         console.log("SUCCESSFULLY SCHEDULED REQUESTS", data)
-                //     )
-                //     .catch((err) =>
-                //         console.error(
-                //             "FAILED TO SCHEDULE REQUESTS",
-                //             err.message
-                //         )
-                //     );
+                set("SCHEDULE_REQUEST", delayRequest)
+                    .then((data) =>
+                        console.log("SUCCESSFULLY SCHEDULED REQUESTS", data)
+                    )
+                    .catch((err) =>
+                        console.error(
+                            "FAILED TO SCHEDULE REQUESTS",
+                            err.message
+                        )
+                    );
             });
     }
 
