@@ -5,38 +5,71 @@ import axios from "axios";
 
 import { Button } from "../../atoms/button";
 import { FormTextarea, Form } from "../../Forms";
-import { useGetExam } from "../../../customHooks";
+import { get, set } from "idb-keyval";
 
 function CurrentQuestion({ question }) {
     const { name, marks, _id: questionId } = question;
     const { _id: userId } = useSelector((state) => state.user);
-    const { _id: examId } = useSelector((state) => state.exam);
+
+    const { examId } = useParams();
+
+    console.log("[CurrentQuestion]", { examId });
+
+    const [scheduledData, setScheduledData] = useState([]);
+    const CONST = "SCHEDULE_REQUEST";
+    // useEffect(() => {
+    //     get(CONST)
+    //         .then((data) => {
+    //             console.log("[CurrentQuestion]", { data });
+    //         })
+    //         .catch((err) => {
+    //             console.error("[CurrentQuestion]", err.message);
+    //         });
+    // }, []);
 
     const initialValues = {
         question: questionId,
         submitted_by: userId,
-        answer: "",
+        data: "",
     };
 
     const [submitMessage, setSubmitMessage] = useState();
 
     async function handleSubmit(e, form) {
         e.preventDefault();
+        console.log("[CurrentQuestion]", { form });
+        const request = { url: `/api/answer/${examId}/${userId}`, data: form };
 
+        const delayRequest = [...scheduledData, request];
         console.log(
-            `%cCurrentQuestion ${JSON.stringify(form)}`,
+            `%cCurrentQuestion ${JSON.stringify(request)} ${JSON.stringify(
+                delayRequest
+            )}`,
             "background-color: yellow; color: black; font-weight:bold"
         );
 
         await axios
-            .post(`/api/answer/${examId}/${userId}`, form)
+            .post(request.url, request.data)
             .then((res) => {
-                console.log("CurrentQuestion: ", res);
+                console.log("[CurrentQuestion]: ", res);
                 setSubmitMessage("Successfully Submitted");
             })
             .catch((err) => {
-                console.log("CurrentQuestion: ", err.message);
+                console.log("[CurrentQuestion]: ", err.message);
                 setSubmitMessage("Error submitting answer");
+
+                console.log("[CurrentQuestion]", delayRequest);
+
+                set("SCHEDULE_REQUEST", delayRequest)
+                    .then((data) =>
+                        console.log("SUCCESSFULLY SCHEDULED REQUESTS", data)
+                    )
+                    .catch((err) =>
+                        console.error(
+                            "FAILED TO SCHEDULE REQUESTS",
+                            err.message
+                        )
+                    );
             });
     }
 
@@ -48,7 +81,7 @@ function CurrentQuestion({ question }) {
             </article>
             <Form initialValues={initialValues} submit={handleSubmit}>
                 <FormTextarea
-                    name="answer"
+                    name="data"
                     placeholder="Type your answer here..."
                 />
                 <Button type="submit">Submit</Button>
