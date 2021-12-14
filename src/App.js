@@ -16,16 +16,14 @@ import {
     useGetPopulatedCourses,
     useGetPopulatedExams,
 } from "./customHooks";
+import { navLinks } from "./utils";
 
-<<<<<<< HEAD
+
 const AttemptPage = lazy(() => import("./Components/Pages/AttemptPage"));
 const LandingPage = lazy(() => import("./Components/Pages/LandingPage"));
 const Course = lazy(() => import("./Components/Course"));
 const Exam = lazy(() => import("./Components/Pages/ExamPage"));
-=======
 
-import { navLinks } from "./utils/navlinks";
->>>>>>> c239d94f708283095c8638ff4516ed12614162b9
 
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URI;
