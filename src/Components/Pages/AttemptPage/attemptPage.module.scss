@@ -1,0 +1,32 @@
+@import "../../../styles/abstract/mixins.scss";
+@import "../../../styles/abstract/variables.scss";
+
+.attemptPageSection {
+    padding: 4rem 8rem;
+
+    .buttonContainer {
+        width: max-content;
+
+        button {
+            &:first-of-type {
+                margin-right: 2rem;
+            }
+        }
+    }
+}
+
+.currentQuestionSection {
+    article {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 2rem;
+    }
+
+    [data-type="form"] {
+        padding-bottom: 2rem;
+    }
+
+    [data-input-type="textarea"] {
+        margin-bottom: 2rem;
+    }
+}

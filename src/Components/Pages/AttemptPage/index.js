@@ -5,7 +5,9 @@ import axios from "axios";
 
 import { Button } from "../../atoms/button";
 import { FormTextarea, Form } from "../../Forms";
-import { get, set } from "idb-keyval";
+import { set } from "idb-keyval";
+
+import styles from "./attemptPage.module.scss";
 
 function CurrentQuestion({ question }) {
     const { name, marks, _id: questionId } = question;
@@ -74,18 +76,21 @@ function CurrentQuestion({ question }) {
     }
 
     return (
-        <section>
+        <section className={styles.currentQuestionSection}>
             <article>
                 <p>{name}</p>
-                <p>{marks}</p>
+                <p>Marks: {marks}</p>
             </article>
-            <Form initialValues={initialValues} submit={handleSubmit}>
-                <FormTextarea
-                    name="data"
-                    placeholder="Type your answer here..."
-                />
-                <Button type="submit">Submit</Button>
-            </Form>
+            <div data-type="form">
+                <Form initialValues={initialValues} submit={handleSubmit}>
+                    <FormTextarea
+                        name="data"
+                        data-input-type="textarea"
+                        placeholder="Type your answer here..."
+                    />
+                    <Button type="submit">Submit</Button>
+                </Form>
+            </div>
             {submitMessage}
         </section>
     );
@@ -123,14 +128,14 @@ export default function AttemptPage() {
     }, [examId, exams]);
 
     return (
-        <>
+        <section className={styles.attemptPageSection}>
             {!!questions.length ? (
                 <CurrentQuestion question={questions[currentIndex]} />
             ) : (
                 ""
             )}
 
-            <div>
+            <div className={styles.buttonContainer}>
                 <Button name="previous" onClick={handleCurrentIndex}>
                     Previous
                 </Button>
@@ -138,6 +143,6 @@ export default function AttemptPage() {
                     Next
                 </Button>
             </div>
-        </>
+        </section>
     );
 }

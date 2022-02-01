@@ -173,7 +173,7 @@ export function ShowExams() {
     const { exams } = useSelector((state) => state.exam);
 
     console.log(
-        `%cexams ${JSON.stringify(exams)}`,
+        `%cexams ${JSON.stringify(exams)} ${exams.length > 0}`,
         "background-color: yellow; color: black"
     );
 
@@ -194,18 +194,19 @@ export function ShowExams() {
 
     return (
         <>
+            {console.log("here", exams.length)}
             {!!exams.length
                 ? exams.map((exam) => {
-                      const { course } = exam;
+                      console.log("exam", exam);
 
                       const examData = {
                           ...exam,
-                          course: course.course_name,
                       };
+
                       return <ExamCard key={exam._id} examData={examData} />;
                   })
                 : ""}
-            Exam Page
+            {/* Exam Page */}
         </>
     );
 }
