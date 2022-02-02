@@ -18,6 +18,7 @@ import {
     useScheduleRequests,
 } from "./customHooks";
 
+const SignUpPage = lazy(() => import("./Components/Pages/SignUpPage"));
 const AttemptPage = lazy(() => import("./Components/Pages/AttemptPage"));
 const LandingPage = lazy(() => import("./Components/Pages/LandingPage"));
 const Course = lazy(() => import("./Components/Pages/CoursePage"));
@@ -55,6 +56,7 @@ function App() {
                 <Navbar />
                 <Suspense fallback={<div>Loading...</div>}>
                     <Routes>
+                        <Route exact path="/signup" element={<SignUpPage />} />
                         <Route
                             exact
                             path={navLinks.home}
