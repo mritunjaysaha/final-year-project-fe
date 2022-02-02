@@ -173,39 +173,27 @@ export function ShowExams() {
     const { exams } = useSelector((state) => state.exam);
 
     console.log(
-        `%cexams ${JSON.stringify(exams)} ${exams.length > 0}`,
+        `%cexams ${JSON.stringify(exams)}`,
         "background-color: yellow; color: black"
     );
 
-    // const {} = exams;
-    // if (examDetails.length) {
-    //     return (
-    //         <>
-    //             {examDetails.map((examData) => (
-    //                 <ExamCard
-    //                     key={examData._id}
-    //                     examData={examData}
-    //                     role={role}
-    //                 />
-    //             ))}
-    //         </>
-    //     );
-    // }
-
     return (
         <>
-            {console.log("here", exams.length)}
+            {console.log("Exam length: ", exams.length)}
             {!!exams.length
                 ? exams.map((exam) => {
                       console.log("exam", exam);
 
                       const examData = {
                           ...exam,
+                          course: exam.course.course_name,
                       };
 
                       return <ExamCard key={exam._id} examData={examData} />;
                   })
                 : ""}
+
+            {/* <div>{JSON.stringify(exams)}</div> */}
             {/* Exam Page */}
         </>
     );
