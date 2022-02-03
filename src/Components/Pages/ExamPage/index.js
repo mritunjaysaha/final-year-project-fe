@@ -51,6 +51,7 @@ export default function Exam() {
         case "STUDENT":
             return <StudentExamPage />;
         case "INSTRUCTOR":
+        case "ADMIN":
             return <InstructorExamPage />;
         default:
             return <></>;

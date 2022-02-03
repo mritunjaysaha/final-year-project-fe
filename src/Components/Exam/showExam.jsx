@@ -3,10 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import {
-    useGetAllQuestionsOfExam,
-    useGetEnrolledStudentsInCourse,
-} from "../../customHooks";
+
 import { Form, FormInput, SelectInput } from "../Forms";
 import { Button } from "../atoms/button";
 
@@ -26,6 +23,8 @@ import styles from "./exam.module.scss";
 function ExamCard({ examData }) {
     const [showQuestionForm, setShowQuestionForm] = useState(false);
     const [showQuestions, setShowQuestions] = useState(false);
+    const [showAnswers, setShowAnswers] = useState(false);
+    // return <>{JSON.stringify(examData)}</>;
 
     const { _id: userId } = useSelector((state) => state.user);
     const {
@@ -36,10 +35,10 @@ function ExamCard({ examData }) {
         total_marks,
         start_date,
         active_for,
+        students,
+        questions,
+        answers,
     } = examData;
-
-    const { questions } = useGetAllQuestionsOfExam(examId);
-    const { students } = useGetEnrolledStudentsInCourse(course);
 
     const initialValues = {
         name,
@@ -72,7 +71,10 @@ function ExamCard({ examData }) {
     }
 
     async function enrollAllHandler() {
-        console.log(`%c${JSON.stringify(students)}`, "background-color: blue");
+        console.log(
+            `%c [Enroll All Handler] ${JSON.stringify(students)}`,
+            "background-color: blue"
+        );
         updateExam({ students }, examId, userId);
     }
 
@@ -129,6 +131,13 @@ function ExamCard({ examData }) {
                     >
                         Show Questions
                     </Button>
+                    <Button
+                        onClick={() => {
+                            setShowAnswers(!showAnswers);
+                        }}
+                    >
+                        Show Answers
+                    </Button>
                 </div>
                 <Button onClick={deleteHandler}>Delete Exam</Button>
             </div>
@@ -152,6 +161,9 @@ function ExamCard({ examData }) {
             ) : (
                 ""
             )}
+
+            {/* Display the answers submitted by the students */}
+            {/* {showAnswers ? ()} */}
         </section>
     );
 }
@@ -161,35 +173,31 @@ ExamCard.propTypes = {
 };
 
 export function ShowExams() {
-    const { exams } = useSelector((state) => state.user);
-
+    const { exams } = useSelector((state) => state.exam);
     console.log(
         `%cexams ${JSON.stringify(exams)}`,
         "background-color: yellow; color: black"
     );
 
-    // if (examDetails.length) {
-    //     return (
-    //         <>
-    //             {examDetails.map((examData) => (
-    //                 <ExamCard
-    //                     key={examData._id}
-    //                     examData={examData}
-    //                     role={role}
-    //                 />
-    //             ))}
-    //         </>
-    //     );
-    // }
-
     return (
         <>
-            {/* {examDetails.length
-                ? examDetails.map((examData) => (
-                      <ExamCard key={examData._id} examData={examData} />
-                  ))
-                : ""} */}
-            Exam Page
+            {console.log("Exam length: ", exams.length)}
+            {!!exams.length
+                ? exams.map((exam) => {
+                      console.log("exam", exam);
+
+                      const examData = {
+                          ...exam,
+                          course: exam.course.course_name,
+                          students: exam.course.students,
+                      };
+
+                      return <ExamCard key={exam._id} examData={examData} />;
+                  })
+                : ""}
+
+            {/* <div>{JSON.stringify(exams)}</div> */}
+            {/* Exam Page */}
         </>
     );
 }

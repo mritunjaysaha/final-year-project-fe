@@ -26,9 +26,7 @@ export function Navbar() {
             <p>
                 <Link to={navLinks.exam}>Exam</Link>
             </p>
-            <p>
-                <MyProfileNav />
-            </p>
+            <p>{/* <MyProfileNav /> */}</p>
             <p>
                 <Button onClick={logoutHandler}>Log out</Button>
             </p>

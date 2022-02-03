@@ -7,6 +7,8 @@ import axios from "axios";
  * @param {ObjectId} userId
  */
 export async function updateExam(data, examId, userId) {
+    console.log("[updateExam]", { data, examId, userId });
+
     await axios
         .put(`/api/exam/${examId}/${userId}`, data)
         .then((res) => console.log(res.data))

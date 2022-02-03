@@ -42,15 +42,15 @@ function QuestionCard({ question, userId, examId }) {
     }
 
     return (
-        <article>
+        <article className={styles.showQuestionsArticle}>
             <Form initialValues={initialValues} submit={updateQuestionHandler}>
-                <div>
+                <div data-input-type="textarea">
                     <FormTextarea
                         name="name"
                         label="Enter the question here..."
                     />
                 </div>
-                <div>
+                <div data-input-type="input">
                     <FormInput name="marks" label="Marks" />
                 </div>
 

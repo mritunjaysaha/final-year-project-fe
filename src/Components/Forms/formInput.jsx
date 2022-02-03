@@ -6,6 +6,15 @@ import { FormContext } from "./index";
 
 import styles from "./form.module.scss";
 
+/**
+ *
+ * @param {*} props
+ * @param {String} label
+ * @param {String} type - default: text
+ * @param {String} name
+ * @param ...rest
+ * @returns
+ */
 export function FormInput(props) {
     const { label, type = "text", name, ...rest } = props;
 

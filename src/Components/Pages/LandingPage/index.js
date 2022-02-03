@@ -21,7 +21,7 @@ export default function LandingPage() {
         console.log(form);
 
         await axios
-            .post(`/api/login`, form)
+            .post(`/api/auth/login`, form)
             .then((res) => {
                 window.localStorage.setItem("jwtToken", res.data.token);
 
