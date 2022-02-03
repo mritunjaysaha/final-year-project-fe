@@ -119,7 +119,7 @@ export function useGetPopulatedExams() {
             await axios
                 .get(`/api/exam/populate/${examId}/${userId}`)
                 .then((res) => {
-                    console.log("usePopulatedExams", res.data);
+                    console.log("[useGetPopulatedExams]", res.data);
                     setExamDetails((previous) => [...previous, res.data]);
 
                     dispatch(setExam(res.data));
@@ -128,10 +128,13 @@ export function useGetPopulatedExams() {
                     console.error("usePopulatedExams", err.message);
 
                     get(INDEX_DB_VARIABLES.exam)
-                        .then((data) => dispatch(setExam(data)))
+                        .then((data) => {
+                            console.log("[useGetPopulatedExams]", data[0]);
+                            dispatch(setExam(data[0]));
+                        })
                         .catch((err) =>
                             console.error(
-                                "[usePopulatedExams] idb",
+                                "[usePopulatedExams] idb error",
                                 err.message
                             )
                         );
