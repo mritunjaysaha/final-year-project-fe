@@ -71,7 +71,10 @@ function ExamCard({ examData }) {
     }
 
     async function enrollAllHandler() {
-        console.log(`%c${JSON.stringify(students)}`, "background-color: blue");
+        console.log(
+            `%c [Enroll All Handler] ${JSON.stringify(students)}`,
+            "background-color: blue"
+        );
         updateExam({ students }, examId, userId);
     }
 
@@ -171,7 +174,6 @@ ExamCard.propTypes = {
 
 export function ShowExams() {
     const { exams } = useSelector((state) => state.exam);
-
     console.log(
         `%cexams ${JSON.stringify(exams)}`,
         "background-color: yellow; color: black"
@@ -187,6 +189,7 @@ export function ShowExams() {
                       const examData = {
                           ...exam,
                           course: exam.course.course_name,
+                          students: exam.course.students,
                       };
 
                       return <ExamCard key={exam._id} examData={examData} />;
