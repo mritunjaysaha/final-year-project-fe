@@ -21,10 +21,11 @@ import styles from "./exam.module.scss";
  * @returns {Element}
  */
 function ExamCard({ examData }) {
+    const navigate = useNavigate();
+
     const [showQuestionForm, setShowQuestionForm] = useState(false);
     const [showQuestions, setShowQuestions] = useState(false);
     const [showAnswers, setShowAnswers] = useState(false);
-    // return <>{JSON.stringify(examData)}</>;
 
     const { _id: userId } = useSelector((state) => state.user);
     const {
@@ -109,6 +110,15 @@ function ExamCard({ examData }) {
                 </div>
                 <div>
                     <Button type="submit">Update</Button>
+
+                    <Button
+                        onClick={() => {
+                            navigate(`${navLinks.evaluatePage}`);
+                        }}
+                    >
+                        {" "}
+                        Evaluate Answers{" "}
+                    </Button>
                 </div>
             </Form>
 
