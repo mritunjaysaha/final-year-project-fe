@@ -113,7 +113,7 @@ function ExamCard({ examData }) {
 
                     <Button
                         onClick={() => {
-                            navigate(`${navLinks.evaluatePage}`);
+                            navigate(`${navLinks.evaluatePage}/${examId}`);
                         }}
                     >
                         {" "}

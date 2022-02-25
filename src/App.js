@@ -73,7 +73,7 @@ function App() {
                         />
 
                         <Route
-                            path={navLinks.evaluatePage}
+                            path={`/evaluate/:examId`}
                             element={<EvaluatePage />}
                         />
                     </Routes>
