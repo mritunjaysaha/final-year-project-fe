@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 
 import { useGetAllAnswerScripts } from "../../../customHooks/answer";
 
+import styles from "./evaluate.module.scss";
+
 export default function EvaluatePage() {
     const { examId } = useParams();
 
@@ -20,7 +22,7 @@ function AllAnswers() {
     const { answer } = useSelector((state) => state);
 
     return (
-        <section>
+        <section className={styles.allAnswersSection}>
             {answer.length > 0
                 ? answer.map(({ _id, question, submitted_by, data }) => (
                       <Answer
@@ -37,18 +39,19 @@ function AllAnswers() {
 }
 
 function Answer({ _id, question, submittedBy, answer }) {
-    const { data, images, marks } = question;
+    const { name, images, marks } = question;
     const { first_name: firstName, last_name: lastName, email } = submittedBy;
-    return (
-        <article>
-            <Question images={images} question={data} marks={marks} />
 
+    return (
+        <article className={styles.answerArticle}>
             <SubmittedBy
                 firstName={firstName}
                 lastName={lastName}
                 email={email}
             />
-            <div>{answer}</div>
+            <Question images={images} question={name} marks={marks} />
+
+            <p>{answer}</p>
         </article>
     );
 }
@@ -62,9 +65,11 @@ Answer.propTypes = {
 
 function Question({ images, question, marks }) {
     return (
-        <div>
-            <p>{question}</p> <span>[Marks: {marks}]</span>
-            {!!images && <img src={images} alt={question} />}
+        <div className={styles.questionDiv}>
+            <p>
+                {question}&nbsp;<span>[Marks: {marks}]</span>
+            </p>
+            {!!images.length && <img src={images} alt={question} />}
         </div>
     );
 }
@@ -76,7 +81,7 @@ Question.propTypes = {
 
 function SubmittedBy({ firstName, lastName, email }) {
     return (
-        <div>
+        <div className={styles.submittedByDiv}>
             <p>{`${firstName} ${lastName}`}</p>
             <p>{email}</p>
         </div>
