@@ -1,4 +1,5 @@
 import { useState, createContext } from "react";
+import PropTypes from "prop-types";
 
 export const FormContext = createContext({ form: {} });
 
@@ -9,9 +10,7 @@ export const FormContext = createContext({ form: {} });
  * @param {Object} initialValues
  * @returns {Element}
  */
-export function Form(props) {
-    const { children, submit = () => {}, initialValues } = props;
-
+export function Form({ children, submit = () => {}, initialValues }) {
     const [form, setForm] = useState(initialValues);
 
     const handleFormChange = (event) => {
@@ -54,3 +53,8 @@ export function Form(props) {
         </form>
     );
 }
+
+Form.propTypes = {
+    initialValues: PropTypes.object.isRequired,
+    submit: PropTypes.func.isRequired,
+};

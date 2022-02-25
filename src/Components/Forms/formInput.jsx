@@ -1,6 +1,7 @@
 import { useContext, useRef } from "react";
 import AutosizeInput from "react-input-autosize";
 import { UilPen } from "@iconscout/react-unicons";
+import PropTypes from "prop-types";
 
 import { FormContext } from "./index";
 
@@ -15,9 +16,7 @@ import styles from "./form.module.scss";
  * @param ...rest
  * @returns
  */
-export function FormInput(props) {
-    const { label, type = "text", name, ...rest } = props;
-
+export function FormInput({ label, type = "text", name, ...rest }) {
     const formContext = useContext(FormContext);
     const { form, handleFormChange } = formContext;
 
@@ -50,3 +49,9 @@ export function FormInput(props) {
         </div>
     );
 }
+
+Function.propTypes = {
+    label: PropTypes.string.isRequired,
+    type: PropTypes.string,
+    name: PropTypes.string.isRequired,
+};

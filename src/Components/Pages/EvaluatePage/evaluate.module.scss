@@ -9,6 +9,15 @@
 
     p {
         width: 60%;
+        margin-bottom: 2rem;
+    }
+
+    form {
+        display: flex;
+
+        button {
+            margin-left: 2rem;
+        }
     }
 }
 

@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import { useGetAllAnswerScripts } from "../../../customHooks/answer";
+import { Form, FormInput } from "../../Forms";
+import { Button } from "../../atoms/button";
 
 import styles from "./evaluate.module.scss";
 
@@ -42,6 +44,13 @@ function Answer({ _id, question, submittedBy, answer }) {
     const { name, images, marks } = question;
     const { first_name: firstName, last_name: lastName, email } = submittedBy;
 
+    const initialValues = { marks: 0 };
+
+    function handleSubmit(e, form) {
+        e.preventDefault();
+        console.log("Marks uploaded", { form });
+    }
+
     return (
         <article className={styles.answerArticle}>
             <SubmittedBy
@@ -52,6 +61,11 @@ function Answer({ _id, question, submittedBy, answer }) {
             <Question images={images} question={name} marks={marks} />
 
             <p>{answer}</p>
+
+            <Form initialValues={initialValues} submit={handleSubmit}>
+                <FormInput name="marks" label="Marks" type="number" />
+                <Button type="submit">Submit</Button>
+            </Form>
         </article>
     );
 }
