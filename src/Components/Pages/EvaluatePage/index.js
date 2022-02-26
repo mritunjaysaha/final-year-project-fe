@@ -7,6 +7,7 @@ import { Form, FormInput } from "../../Forms";
 import { Button } from "../../atoms/button";
 
 import styles from "./evaluate.module.scss";
+import axios from "axios";
 
 export default function EvaluatePage() {
     const { examId } = useParams();
@@ -22,33 +23,51 @@ export default function EvaluatePage() {
 
 function AllAnswers() {
     const { answer } = useSelector((state) => state);
-
+    const { _id: userId } = useSelector((state) => state.user);
     return (
         <section className={styles.allAnswersSection}>
             {answer.length > 0
-                ? answer.map(({ _id, question, submitted_by, data }) => (
-                      <Answer
-                          key={_id}
-                          _id={_id}
-                          question={question}
-                          submittedBy={submitted_by}
-                          answer={data}
-                      />
-                  ))
+                ? answer.map(
+                      ({
+                          _id: answerId,
+                          question,
+                          submitted_by,
+                          data: answer,
+                      }) => {
+                          console.log("answerId", answerId);
+                          return (
+                              <Answer
+                                  key={answerId}
+                                  userId={userId}
+                                  answerId={answerId}
+                                  question={question}
+                                  submittedBy={submitted_by}
+                                  answer={answer}
+                              />
+                          );
+                      }
+                  )
                 : ""}
         </section>
     );
 }
 
-function Answer({ _id, question, submittedBy, answer }) {
+function Answer({ userId, answerId, question, submittedBy, answer }) {
     const { name, images, marks } = question;
     const { first_name: firstName, last_name: lastName, email } = submittedBy;
 
     const initialValues = { marks: 0 };
 
-    function handleSubmit(e, form) {
+    async function handleSubmit(e, form) {
         e.preventDefault();
         console.log("Marks uploaded", { form });
+
+        await axios
+            .put(`/api/answer/marks/${answerId}/${userId}`, form)
+            .then((res) => {
+                console.log("[Answer] [handleSubmit]", { res });
+            })
+            .catch((err) => console.error(err));
     }
 
     return (
@@ -71,7 +90,8 @@ function Answer({ _id, question, submittedBy, answer }) {
 }
 
 Answer.propTypes = {
-    _id: PropTypes.string.isRequired,
+    userId: PropTypes.string.isRequired,
+    answerId: PropTypes.string.isRequired,
     question: PropTypes.object.isRequired,
     submittedBy: PropTypes.object.isRequired,
     answer: PropTypes.string.isRequired,
