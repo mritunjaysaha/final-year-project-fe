@@ -23,6 +23,7 @@ const AttemptPage = lazy(() => import("./Components/Pages/AttemptPage"));
 const LandingPage = lazy(() => import("./Components/Pages/LandingPage"));
 const Course = lazy(() => import("./Components/Pages/CoursePage"));
 const Exam = lazy(() => import("./Components/Pages/ExamPage"));
+const EvaluatePage = lazy(() => import("./Components/Pages/EvaluatePage"));
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URI;
 
@@ -39,7 +40,8 @@ if (window.localStorage.jwtToken) {
 
     if (decoded.exp < currentTime) {
         /**
-         * remove token and redirect to login page
+         * TODO: remove token and redirect to login page
+         * TODO: clear the IndexDB
          */
     }
 }
@@ -57,27 +59,22 @@ function App() {
                 <Suspense fallback={<div>Loading...</div>}>
                     <Routes>
                         <Route exact path="/signup" element={<SignUpPage />} />
-                        <Route
-                            exact
-                            path={navLinks.home}
-                            element={<LandingPage />}
-                        />
+                        <Route path={navLinks.home} element={<LandingPage />} />
                         {/* TODO: Exam Route [Protected route] */}
-                        <Route
-                            exact
-                            path={navLinks.course}
-                            element={<Course />}
-                        />
+                        <Route path={navLinks.course} element={<Course />} />
                         <Route exact path={navLinks.exam} element={<Exam />} />
                         <Route
-                            exact
                             path={navLinks.myProfile}
                             element={<MyProfile />}
                         />
                         <Route
-                            exact
                             path={`/attempt/:examId`}
                             element={<AttemptPage />}
+                        />
+
+                        <Route
+                            path={`/evaluate/:examId`}
+                            element={<EvaluatePage />}
                         />
                     </Routes>
                 </Suspense>

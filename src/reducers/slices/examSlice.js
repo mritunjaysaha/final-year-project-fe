@@ -7,9 +7,10 @@ export const examSlice = createSlice({
     },
     reducers: {
         setExam: (state, { payload }) => {
+            // TODO: remove the spread operator
             return { exams: [payload, ...state.exams] };
         },
     },
 });
 
-export const { setExam, setQuestions } = examSlice.actions;
+export const { setExam } = examSlice.actions;

@@ -1,0 +1,43 @@
+@import "../../../styles/imports.scss";
+
+.allAnswersSection {
+    padding: 4rem 12rem;
+}
+
+.answerArticle {
+    margin-bottom: 4rem;
+
+    p {
+        width: 60%;
+        margin-bottom: 2rem;
+    }
+
+    form {
+        display: flex;
+
+        button {
+            margin-left: 2rem;
+        }
+    }
+}
+
+.submittedByDiv {
+    display: flex;
+    flex-wrap: nowrap;
+
+    margin-bottom: 2rem;
+}
+
+.questionDiv {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+
+    p {
+        margin-bottom: 2rem;
+
+        span {
+            font-weight: $fw-bold;
+        }
+    }
+}
