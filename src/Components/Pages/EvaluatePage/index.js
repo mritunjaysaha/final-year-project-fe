@@ -33,6 +33,7 @@ function AllAnswers() {
                           question,
                           submitted_by,
                           data: answer,
+                          marks,
                       }) => {
                           console.log("answerId", answerId);
                           return (
@@ -43,6 +44,7 @@ function AllAnswers() {
                                   question={question}
                                   submittedBy={submitted_by}
                                   answer={answer}
+                                  _marks={marks}
                               />
                           );
                       }
@@ -52,11 +54,11 @@ function AllAnswers() {
     );
 }
 
-function Answer({ userId, answerId, question, submittedBy, answer }) {
+function Answer({ userId, answerId, question, submittedBy, answer, _marks }) {
     const { name, images, marks } = question;
     const { first_name: firstName, last_name: lastName, email } = submittedBy;
 
-    const initialValues = { marks: 0 };
+    const initialValues = { marks: !!_marks ? _marks : 0 };
 
     async function handleSubmit(e, form) {
         e.preventDefault();
