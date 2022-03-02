@@ -38,7 +38,7 @@ function ExamCard({ examData }) {
         active_for,
         students,
         questions,
-        answers,
+        total_questions,
     } = examData;
 
     const initialValues = {
@@ -48,6 +48,7 @@ function ExamCard({ examData }) {
         total_marks,
         active_for,
         start_date,
+        total_questions,
     };
 
     async function submitHandler(form, event) {
@@ -67,6 +68,9 @@ function ExamCard({ examData }) {
             .delete(`/api/exam/${examId}/${userId}`)
             .then((res) => {
                 console.log("[showExam] deleteHandler", res.data);
+                /**
+                 * TODO: Update the deleted exam from the IndexDB and redux store
+                 */
             })
             .catch((err) => console.error("[showExam]", err.message));
     }
@@ -105,6 +109,14 @@ function ExamCard({ examData }) {
                             type="number"
                             name="total_marks"
                             label="Total Marks"
+                        />
+                    </div>
+
+                    <div className={styles.input}>
+                        <FormInput
+                            type="number"
+                            name="total_questions"
+                            label="Total Questions"
                         />
                     </div>
                 </div>
