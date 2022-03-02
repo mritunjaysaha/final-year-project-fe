@@ -32,6 +32,7 @@ export function ExamForm({ formCloseHandler }) {
         total_marks: "80",
         start_date: Date.now(),
         active_for: Date.now(),
+        total_questions: 5,
     };
 
     useEffect(() => {
@@ -89,7 +90,6 @@ export function ExamForm({ formCloseHandler }) {
                         label="Course"
                         options={options}
                     />
-                    {console.log({ options })}
                 </div>
                 <div className={styles.inputContainerFlex2}>
                     <div className={styles.input}>
@@ -101,11 +101,20 @@ export function ExamForm({ formCloseHandler }) {
                             label="Duration (in hours)"
                         />
                     </div>
+                </div>
+                <div className={styles.inputContainerFlex2}>
                     <div className={styles.input}>
                         <FormInput
                             type="number"
                             name="total_marks"
                             label="Total Marks"
+                        />
+                    </div>
+                    <div className={styles.input}>
+                        <FormInput
+                            type="number"
+                            name="total_questions"
+                            label="Total Questions"
                         />
                     </div>
                 </div>
