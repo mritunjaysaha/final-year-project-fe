@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -27,6 +27,8 @@ function ExamCard({ examData }) {
     const [showQuestions, setShowQuestions] = useState(false);
     const [showAnswers, setShowAnswers] = useState(false);
 
+    const [questionsAdded, setQuestionsAdded] = useState(0);
+
     const { _id: userId } = useSelector((state) => state.user);
     const {
         _id: examId,
@@ -50,6 +52,11 @@ function ExamCard({ examData }) {
         start_date,
         total_questions,
     };
+
+    useEffect(() => {
+        // Update the questions length
+        setQuestionsAdded(questions.length);
+    }, [questions]);
 
     async function submitHandler(form, event) {
         event.preventDefault();

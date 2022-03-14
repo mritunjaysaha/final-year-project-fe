@@ -18,6 +18,8 @@ import {
     useScheduleRequests,
 } from "./customHooks";
 
+import { MCQExam } from "./Components/Exam/mcqExam";
+
 const SignUpPage = lazy(() => import("./Components/Pages/SignUpPage"));
 const AttemptPage = lazy(() => import("./Components/Pages/AttemptPage"));
 const LandingPage = lazy(() => import("./Components/Pages/LandingPage"));
@@ -76,6 +78,7 @@ function App() {
                             path={`/evaluate/:examId`}
                             element={<EvaluatePage />}
                         />
+                        <Route path="/mcq" element={<MCQExam />} />
                     </Routes>
                 </Suspense>
             </BrowserRouter>
