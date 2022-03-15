@@ -1,71 +1,57 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const toppings = [
-    {
-        name: "Capsicum",
-        price: 1.2,
-    },
-    {
-        name: "Paneer",
-        price: 2.0,
-    },
-    {
-        name: "Red Paprika",
-        price: 2.5,
-    },
-    {
-        name: "Onions",
-        price: 3.0,
-    },
-    {
-        name: "Extra Cheese",
-        price: 3.5,
-    },
-    {
-        name: "Baby Corns",
-        price: 3.0,
-    },
-    {
-        name: "Mushroom",
-        price: 2.0,
-    },
-];
+const DUMMY_MCQ_SCHEMA = {
+    question: "",
+    options: [{ value: "", isCorrect: "default: false" }],
 
-const getFormattedPrice = (price) => `$${price.toFixed(2)}`;
+    answered: "",
+};
+
+// ! Add restriction for at least one option to be true
+
+const test = {
+    question: "Number of wheels in a car",
+    options: [
+        { value: "1", isCorrect: false },
+        { value: "2", isCorrect: false },
+        { value: "3", isCorrect: false },
+        { value: "4", isCorrect: true },
+    ],
+};
 
 export function MCQExam() {
     const [checkedState, setCheckedState] = useState(
-        new Array(toppings.length).fill(false)
+        new Array(test.options.length).fill(false)
     );
 
-    const [total, setTotal] = useState(0);
+    const [answeredIndex, setAnsweredIndex] = useState(null);
 
     const handleChange = (position) => {
-        const updatedCheckedState = checkedState.map((item, index) =>
-            index === position ? !item : item
-        );
+        console.log("handleChange clicked");
+        const updatedCheckedState = checkedState.map((item, index) => {
+            console.log({ index });
+
+            if (index === position) {
+                setAnsweredIndex(position);
+                return !item;
+            } else {
+                return item;
+            }
+        });
 
         setCheckedState(updatedCheckedState);
-
-        const totalPrice = updatedCheckedState.reduce(
-            (sum, currentState, index) => {
-                if (currentState === true) {
-                    return sum + toppings[index].price;
-                }
-
-                return sum;
-            },
-            0
-        );
-
-        setTotal(totalPrice);
     };
+
+    useEffect(() => {
+        console.log({ answeredIndex });
+    }, [answeredIndex]);
 
     return (
         <div>
-            <h3>Select Toppings</h3>
+            {/* {JSON.stringify(test)} */}
+            <h3>{test.question}</h3>
             <ul>
-                {toppings.map(({ name, price }, index) => {
+                {test.options.map(({ value }, index) => {
                     return (
                         <li key={index}>
                             <div>
@@ -73,28 +59,19 @@ export function MCQExam() {
                                     <input
                                         type="checkbox"
                                         id={`custom-checkbox-${index}`}
-                                        name={name}
-                                        value={name}
+                                        name={value}
+                                        value={value}
                                         checked={checkedState[index]}
                                         onChange={() => handleChange(index)}
                                     />
                                     <label htmlFor={`custom-checkbox-${index}`}>
-                                        {name}
+                                        {value}
                                     </label>
                                 </div>
-                                <div>{getFormattedPrice(price)}</div>
                             </div>
                         </li>
                     );
                 })}
-
-                <li>
-                    <div>
-                        <div>
-                            Total: <span>{getFormattedPrice(total)}</span>
-                        </div>
-                    </div>
-                </li>
             </ul>
         </div>
     );
