@@ -28,16 +28,11 @@ export function MCQExam() {
 
     const handleChange = (position) => {
         console.log("handleChange clicked");
-        const updatedCheckedState = checkedState.map((item, index) => {
-            console.log({ index });
+        const updatedCheckedState = new Array(test.options.length).fill(false);
 
-            if (index === position) {
-                setAnsweredIndex(position);
-                return !item;
-            } else {
-                return item;
-            }
-        });
+        updatedCheckedState[position] = true;
+
+        setAnsweredIndex(position);
 
         setCheckedState(updatedCheckedState);
     };
