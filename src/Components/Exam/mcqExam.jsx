@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 
 const DUMMY_MCQ_SCHEMA = {
     question: "",
-    options: [{ value: "", isCorrect: "default: false" }],
-
-    answered: "",
+    options: [
+        { value: "", isCorrect: "default: false", answered: "default: null" },
+    ],
 };
 
 // ! Add restriction for at least one option to be true
@@ -37,13 +37,15 @@ export function MCQExam() {
         setCheckedState(updatedCheckedState);
     };
 
+    const handleMCQCorrectAnswerButton = (correctOption) => {};
+
     useEffect(() => {
         console.log({ answeredIndex });
     }, [answeredIndex]);
 
     return (
         <div>
-            {/* {JSON.stringify(test)} */}
+            {JSON.stringify(test)}
             <h3>{test.question}</h3>
             <ul>
                 {test.options.map(({ value }, index) => {
@@ -62,6 +64,15 @@ export function MCQExam() {
                                     <label htmlFor={`custom-checkbox-${index}`}>
                                         {value}
                                     </label>
+                                    <button
+                                        onClick={() =>
+                                            handleMCQCorrectAnswerButton(
+                                                `custom-checkbox-${index}`
+                                            )
+                                        }
+                                    >
+                                        Correct Answer
+                                    </button>
                                 </div>
                             </div>
                         </li>

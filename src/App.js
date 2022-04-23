@@ -19,6 +19,7 @@ import {
 } from "./customHooks";
 
 import { MCQExam } from "./Components/Exam/mcqExam";
+import { CreateMcqQuestionForm } from "./Components/Exam/createMcqQuestionsForm";
 
 const SignUpPage = lazy(() => import("./Components/Pages/SignUpPage"));
 const AttemptPage = lazy(() => import("./Components/Pages/AttemptPage"));
@@ -78,7 +79,10 @@ function App() {
                             path={`/evaluate/:examId`}
                             element={<EvaluatePage />}
                         />
-                        <Route path="/mcq" element={<MCQExam />} />
+                        <Route
+                            path="/mcq"
+                            element={<CreateMcqQuestionForm />}
+                        />
                     </Routes>
                 </Suspense>
             </BrowserRouter>
