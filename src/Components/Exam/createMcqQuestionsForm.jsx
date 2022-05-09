@@ -4,13 +4,23 @@ import { useSelector } from "react-redux";
 import { Button } from "../atoms/button";
 import { Form } from "../Forms";
 import { FormInput } from "../Forms";
+import { array } from "prop-types";
 
 export function CreateMcqQuestionForm({ examId, formCloseHandler }) {
-    const [numberOfOptions, setNumberOfOptions] = useState(0);
     const { __id: userId } = useSelector((state) => state.user);
-    const [formValues, setFormValues] = useState({ numberOfOptions: 0 });
+    const [formValues, setFormValues] = useState({
+        question: "",
+        options: [],
+        correctAnswer: "",
+    });
+
+    const [temp, setTemp] = useState("");
 
     const [listComponents, SetListComponents] = useState([]);
+
+    useEffect(() => {
+        console.log("mcq useEffect", { formValues });
+    }, [formValues]);
 
     // async function handleSubmit(e, form) {
     //     e.preventDefault();
@@ -28,6 +38,30 @@ export function CreateMcqQuestionForm({ examId, formCloseHandler }) {
     //         });
     // }
 
+    function handleOnChange(e) {
+        const { name, value } = e.target;
+
+        setFormValues({ ...formValues, [name]: value });
+    }
+
+    function handleOnChangeListComponents(e) {
+        e.preventDefault();
+
+        const index = e.target.getAttribute("data-index");
+
+        const optionsArray = formValues.options;
+
+        console.log(
+            "mcq use handleOnChangeListComponents()",
+            e.target.value,
+            index,
+            optionsArray[index],
+            optionsArray
+        );
+
+        setFormValues({ ...formValues, options: optionsArray });
+    }
+
     function generateOptions(e) {
         e.preventDefault();
 
@@ -37,25 +71,38 @@ export function CreateMcqQuestionForm({ examId, formCloseHandler }) {
         SetListComponents([]);
         let count = 0;
 
-        while (count < numberOfOptions) {
+        const optionsArray = [];
+
+        while (count < 4) {
+            optionsArray.push("");
             count++;
+        }
+
+        setFormValues({ ...formValues, options: optionsArray });
+        console.log("mcq optionsArray", optionsArray);
+
+        count = 0;
+
+        while (count < 4) {
             const component = ListComponents(count);
             SetListComponents((prev) => [...prev, component]);
+            count++;
         }
-    }
 
-    function handleOnChange(e) {
-        const { name, value } = e.target;
-
-        setFormValues({ ...formValues, [name]: value });
-
-        setNumberOfOptions(value);
+        console.log("mcq generateOptions()", formValues);
     }
 
     function ListComponents(index) {
         return (
             <li>
-                <FormInput name={`option-${index}`} label={`option-${index}`} />
+                <FormInput
+                    name={`option-${index}`}
+                    label={`option-${index}`}
+                    data-index={index}
+                    value={formValues.options[index]}
+                    onChange={handleOnChangeListComponents}
+                />
+                <Button>Correct Answer</Button>
             </li>
         );
     }
@@ -76,7 +123,8 @@ export function CreateMcqQuestionForm({ examId, formCloseHandler }) {
                         onChange={handleOnChange}
                     />
 
-                    <Button onClick={generateOptions}>Generate Options</Button>
+                    <Button onClick={generateOptions}>MCQ</Button>
+                    <Button onClick={generateOptions}>QUIZ</Button>
                 </div>
                 <ul>
                     <h3>Options</h3>
