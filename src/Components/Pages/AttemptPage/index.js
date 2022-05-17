@@ -102,6 +102,14 @@ export default function AttemptPage() {
     const [questions, setQuestions] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    useEffect(() => {
+        exams.map(({ _id, questions }) => {
+            if (_id === examId) {
+                setQuestions(questions);
+            }
+        });
+    }, [examId, exams]);
+
     function handleCurrentIndex(e) {
         const { name } = e.target;
 
@@ -119,18 +127,22 @@ export default function AttemptPage() {
         }
     }
 
-    useEffect(() => {
-        exams.map(({ _id, questions }) => {
-            if (_id === examId) {
-                setQuestions(questions);
+    function handleFullScreenMode() {
+        console.log("FULLSCREEN");
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
             }
-        });
-    }, [examId, exams]);
+        }
+    }
 
     return (
         <section>
             <div>
-                Go FullScreen to Proceed <button>FullScreen</button>
+                Go FullScreen to Proceed{" "}
+                <button onClick={handleFullScreenMode}>FullScreen</button>
             </div>
 
             <section className={styles.attemptPageSection}>
