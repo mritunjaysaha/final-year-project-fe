@@ -138,6 +138,22 @@ export default function AttemptPage() {
         }
     }
 
+    function handleFullScreenChange() {
+        console.log("FULLSCREEN CHANGED");
+
+        if (document.fullscreenElement) {
+            console.log(
+                `FULLSCREEN CHANGED Element: ${document.fullscreenElement.id} entered fullscreen mode.`
+            );
+        } else {
+            console.log("FULLSCREEN CHANGED Leaving fullscreen mode.");
+        }
+    }
+
+    useEffect(() => {
+        document.onfullscreenchange = handleFullScreenChange;
+    }, []);
+
     return (
         <section>
             <div>
