@@ -128,21 +128,27 @@ export default function AttemptPage() {
     }, [examId, exams]);
 
     return (
-        <section className={styles.attemptPageSection}>
-            {!!questions.length ? (
-                <CurrentQuestion question={questions[currentIndex]} />
-            ) : (
-                ""
-            )}
-
-            <div className={styles.buttonContainer}>
-                <Button name="previous" onClick={handleCurrentIndex}>
-                    Previous
-                </Button>
-                <Button name="next" onClick={handleCurrentIndex}>
-                    Next
-                </Button>
+        <section>
+            <div>
+                Go FullScreen to Proceed <button>FullScreen</button>
             </div>
+
+            <section className={styles.attemptPageSection}>
+                {!!questions.length ? (
+                    <CurrentQuestion question={questions[currentIndex]} />
+                ) : (
+                    ""
+                )}
+
+                <div className={styles.buttonContainer}>
+                    <Button name="previous" onClick={handleCurrentIndex}>
+                        Previous
+                    </Button>
+                    <Button name="next" onClick={handleCurrentIndex}>
+                        Next
+                    </Button>
+                </div>
+            </section>
         </section>
     );
 }
