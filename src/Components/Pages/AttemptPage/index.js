@@ -156,10 +156,10 @@ export default function AttemptPage() {
 
     return (
         <section>
-            <div>
+            <article>
                 Go FullScreen to Proceed{" "}
                 <button onClick={handleFullScreenMode}>FullScreen</button>
-            </div>
+            </article>
 
             <section className={styles.attemptPageSection}>
                 {!!questions.length ? (
