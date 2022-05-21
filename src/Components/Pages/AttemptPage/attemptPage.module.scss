@@ -4,6 +4,8 @@
 .attemptPageSection {
     padding: 4rem 8rem;
 
+
+
     .buttonContainer {
         width: max-content;
 
@@ -29,4 +31,48 @@
     [data-input-type="textarea"] {
         margin-bottom: 2rem;
     }
+}
+
+
+.alertSection{
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    display: grid;
+    place-items: center;
+
+
+    // background-color: rgba(0,0,0,0.1);
+    background-color: rgba(1,1,1,0.5);
+    height: 100vh;
+    width: 100vw;
+}
+
+.alertFullScreenArticle {
+    display: grid;
+    place-items: center;
+
+    background-color: $veryLightGrey;
+    border-radius: $border-radius-alpha;
+
+    width: max-content;
+    height: max-content;
+
+    padding: 4rem;
+
+    z-index: 10000;
+
+    p{
+        font-size: $fs24;
+    }
+
+    button{
+        margin-top: 2rem;
+    }
+}
+
+
+.displayNone{
+    display: none;
 }

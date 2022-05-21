@@ -101,6 +101,15 @@ export default function AttemptPage() {
     const { examId } = useParams();
     const [questions, setQuestions] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [isFullScreen, setisFullScreen] = useState(true);
+
+    useEffect(() => {
+        exams.map(({ _id, questions }) => {
+            if (_id === examId) {
+                setQuestions(questions);
+            }
+        });
+    }, [examId, exams]);
 
     function handleCurrentIndex(e) {
         const { name } = e.target;
@@ -119,30 +128,66 @@ export default function AttemptPage() {
         }
     }
 
-    useEffect(() => {
-        exams.map(({ _id, questions }) => {
-            if (_id === examId) {
-                setQuestions(questions);
+    function handleFullScreenMode() {
+        console.log("FULLSCREEN");
+        setisFullScreen(!isFullScreen);
+
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
             }
-        });
-    }, [examId, exams]);
+        }
+    }
+
+    function handleFullScreenChange() {
+        console.log("FULLSCREEN CHANGED");
+
+        setisFullScreen(!isFullScreen);
+
+        if (document.fullscreenElement) {
+            console.log(
+                `FULLSCREEN CHANGED Element: ${document.fullscreenElement.id} entered fullscreen mode.`
+            );
+        } else {
+            console.log("FULLSCREEN CHANGED Leaving fullscreen mode.");
+        }
+    }
+
+    useEffect(() => {
+        document.onfullscreenchange = handleFullScreenChange;
+    }, []);
 
     return (
-        <section className={styles.attemptPageSection}>
-            {!!questions.length ? (
-                <CurrentQuestion question={questions[currentIndex]} />
-            ) : (
-                ""
-            )}
+        <section>
+            <section
+                className={`${styles.alertSection} ${
+                    isFullScreen === false ? styles.displayNone : ""
+                }`}
+            >
+                <article className={styles.alertFullScreenArticle}>
+                    <p>Go FullScreen to Proceed </p>
+                    <Button onClick={handleFullScreenMode}>FullScreen</Button>
+                </article>
+            </section>
 
-            <div className={styles.buttonContainer}>
-                <Button name="previous" onClick={handleCurrentIndex}>
-                    Previous
-                </Button>
-                <Button name="next" onClick={handleCurrentIndex}>
-                    Next
-                </Button>
-            </div>
+            <section className={styles.attemptPageSection}>
+                {!!questions.length ? (
+                    <CurrentQuestion question={questions[currentIndex]} />
+                ) : (
+                    ""
+                )}
+
+                <div className={styles.buttonContainer}>
+                    <Button name="previous" onClick={handleCurrentIndex}>
+                        Previous
+                    </Button>
+                    <Button name="next" onClick={handleCurrentIndex}>
+                        Next
+                    </Button>
+                </div>
+            </section>
         </section>
     );
 }
