@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-
+import Countdown from "react-countdown";
 import { Button } from "../../atoms/button";
 import { FormTextarea, Form } from "../../Forms";
 import { set } from "idb-keyval";
@@ -102,6 +102,7 @@ export default function AttemptPage() {
     const [questions, setQuestions] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isFullScreen, setisFullScreen] = useState(true);
+    let expiryDate = new Date(new Date().setHours(new Date().getHours() + 2));
 
     useEffect(() => {
         exams.map(({ _id, questions }) => {
@@ -172,6 +173,9 @@ export default function AttemptPage() {
                 </article>
             </section>
 
+            <section>
+                <Countdown date={expiryDate} />
+            </section>
             <section className={styles.attemptPageSection}>
                 {!!questions.length ? (
                     <CurrentQuestion question={questions[currentIndex]} />
