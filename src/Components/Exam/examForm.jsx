@@ -73,7 +73,7 @@ export function ExamForm({ formCloseHandler }) {
                 formCloseHandler();
             })
             .catch((err) => {
-                console.log({ err });
+                console.log("EXAM PAGE handle submit", { err });
             });
     }
 

@@ -27,7 +27,7 @@ function ExamCard({ examData }) {
     const [showQuestions, setShowQuestions] = useState(false);
     const [showAnswers, setShowAnswers] = useState(false);
 
-    const [questionsAdded, setQuestionsAdded] = useState(0); // TODO: 
+    const [questionsAdded, setQuestionsAdded] = useState(0); // TODO:
 
     const { _id: userId } = useSelector((state) => state.user);
     const {
@@ -276,12 +276,22 @@ StudentExamCard.propTypes = {
 export function ShowStudentExams() {
     const { exams } = useSelector((state) => state.exam);
 
+    console.log("[EXAM PAGE ShowStudentExams]", exams);
+
     return (
         <>
             {exams.length
-                ? exams.map((examData) => (
-                      <StudentExamCard key={examData._id} examData={examData} />
-                  ))
+                ? exams.map((examData) => {
+                      if (new Date(examData.start_date) < Date.now())
+                          return <div>Exam Expired</div>;
+                      else
+                          return (
+                              <StudentExamCard
+                                  key={examData._id}
+                                  examData={examData}
+                              />
+                          );
+                  })
                 : ""}
         </>
     );
