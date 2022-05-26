@@ -6,6 +6,8 @@ import Countdown from "react-countdown";
 import { Button } from "../../atoms/button";
 import { FormTextarea, Form } from "../../Forms";
 import { set } from "idb-keyval";
+import { useNavigate } from "react-router-dom";
+import { navLinks } from "../../../utils";
 
 import styles from "./attemptPage.module.scss";
 
@@ -102,10 +104,16 @@ export default function AttemptPage() {
     const [questions, setQuestions] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isFullScreen, setisFullScreen] = useState(true);
-    const [endTime, setendTime] = useState();
+    const [examDuration, setexamDuration] = useState();
+    const [isExamStarted, setisExamStarted] = useState();
 
-    const expiryDate = (end_time = 2) =>
-        new Date(new Date().setHours(new Date().getHours() + end_time));
+    let navigate = useNavigate();
+
+    const expiryDate = (end_time = 2) => {
+        setisExamStarted(true);
+
+        return new Date(new Date().setHours(new Date().getHours() + end_time));
+    };
 
     console.log("[ATTEMPTED PAGE] exams", exams);
 
@@ -113,10 +121,25 @@ export default function AttemptPage() {
         exams.map(({ _id, questions, time_limit }) => {
             if (_id === examId) {
                 setQuestions(questions);
-                setendTime(time_limit);
+                setexamDuration(time_limit);
             }
         });
     }, [examId, exams]);
+
+    useEffect(() => {
+        let timeoutID;
+        if (isExamStarted === true) {
+            timeoutID = setTimeout(() => {
+                console.log("[ATTEMPT PAGE] exam started");
+            }, examDuration);
+        }
+
+        return () => {
+            clearTimeout(timeoutID);
+
+            navigate.push(navLinks.home);
+        };
+    }, [isExamStarted, examDuration, navigate]);
 
     function handleCurrentIndex(e) {
         const { name } = e.target;
@@ -180,7 +203,7 @@ export default function AttemptPage() {
             </section>
 
             <section>
-                <Countdown date={expiryDate(endTime)} />
+                <Countdown date={expiryDate(examDuration)} />
             </section>
             <section className={styles.attemptPageSection}>
                 {!!questions.length ? (
