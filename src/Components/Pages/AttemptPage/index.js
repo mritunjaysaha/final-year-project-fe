@@ -187,7 +187,7 @@ export default function AttemptPage() {
 
     useEffect(() => {
         document.onfullscreenchange = handleFullScreenChange;
-    }, []);
+    });
 
     return (
         <section>
