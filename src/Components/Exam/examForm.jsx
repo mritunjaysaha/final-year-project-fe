@@ -30,8 +30,8 @@ export function ExamForm({ formCloseHandler }) {
         course_coordinator: userId,
         time_limit: "3", // date or number type only -- cannot have 'hours' or other strings
         total_marks: "80",
-        start_date: Date.now(),
-        active_for: Date.now(),
+        start_date: new Date().setDate(new Date().getDate() + 1),
+        active_for: new Date().setDate(new Date().getDate() + 2),
         total_questions: 5,
     };
 

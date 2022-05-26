@@ -102,12 +102,18 @@ export default function AttemptPage() {
     const [questions, setQuestions] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isFullScreen, setisFullScreen] = useState(true);
-    let expiryDate = new Date(new Date().setHours(new Date().getHours() + 2));
+    const [endTime, setendTime] = useState();
+
+    const expiryDate = (end_time = 2) =>
+        new Date(new Date().setHours(new Date().getHours() + end_time));
+
+    console.log("[ATTEMPTED PAGE] exams", exams);
 
     useEffect(() => {
-        exams.map(({ _id, questions }) => {
+        exams.map(({ _id, questions, time_limit }) => {
             if (_id === examId) {
                 setQuestions(questions);
+                setendTime(time_limit);
             }
         });
     }, [examId, exams]);
@@ -174,7 +180,7 @@ export default function AttemptPage() {
             </section>
 
             <section>
-                <Countdown date={expiryDate} />
+                <Countdown date={expiryDate(endTime)} />
             </section>
             <section className={styles.attemptPageSection}>
                 {!!questions.length ? (
