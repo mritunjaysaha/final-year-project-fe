@@ -204,6 +204,13 @@ export default function AttemptPage() {
 
             <section>
                 <Countdown date={expiryDate(examDuration)} />
+                <Button
+                    onClick={() => {
+                        navigate.push(navLinks.home);
+                    }}
+                >
+                    END TEST
+                </Button>
             </section>
             <section className={styles.attemptPageSection}>
                 {!!questions.length ? (
