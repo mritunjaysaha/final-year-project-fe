@@ -89,7 +89,6 @@ function CurrentQuestion({ question }) {
                         data-input-type="textarea"
                         placeholder="Type your answer here..."
                     />
-                    <Button type="submit">Submit</Button>
                 </Form>
             </div>
             {submitMessage}
@@ -99,11 +98,13 @@ function CurrentQuestion({ question }) {
 
 export default function AttemptPage() {
     const { exams } = useSelector((state) => state.exam);
+    const { _id: userId } = useSelector((state) => state.user);
     const { examId } = useParams();
     const [questions, setQuestions] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isFullScreen, setisFullScreen] = useState(true);
     const [endTime, setendTime] = useState();
+    const [screenChanged, setScreenChanged] = useState([]);
     const navigate = useNavigate();
 
     const expiryDate = (end_time = 2) =>
@@ -119,6 +120,10 @@ export default function AttemptPage() {
             }
         });
     }, [examId, exams]);
+
+    useEffect(() => {
+        console.log("FULLSCREEN CHANGED", screenChanged);
+    }, [screenChanged]);
 
     function handleCurrentIndex(e) {
         const { name } = e.target;
@@ -138,11 +143,12 @@ export default function AttemptPage() {
     }
 
     function handleFullScreenMode() {
-        console.log("FULLSCREEN");
+        console.log("FULLSCREEN CHANGED");
         setisFullScreen(!isFullScreen);
 
         if (!document.fullscreenElement) {
             document.documentElement.requestFullscreen();
+            setScreenChanged((prev) => [...prev, new Date()]);
         } else {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
@@ -162,6 +168,23 @@ export default function AttemptPage() {
         } else {
             console.log("FULLSCREEN CHANGED Leaving fullscreen mode.");
         }
+    }
+
+    async function handleEndTest(e) {
+        e.preventDefault();
+        const request = {
+            url: `/api/answer/${examId}/${userId}`,
+            screen_changed: screenChanged,
+        };
+
+        await axios
+            .post(request.url, request.data)
+            .then((res) => {
+                console.log("[CurrentQuestion]: ", res);
+            })
+            .catch((err) => {
+                console.log("[CurrentQuestion]: ", err.message);
+            });
     }
 
     useEffect(() => {
@@ -188,6 +211,14 @@ export default function AttemptPage() {
                         navigate.push(navLinks.home);
                     }}
                 />
+                <Button
+                    onClick={(e) => {
+                        handleEndTest(e);
+                        navigate.push(navLinks.home);
+                    }}
+                >
+                    END TEST
+                </Button>
             </section>
             <section className={styles.attemptPageSection}>
                 {!!questions.length ? (
