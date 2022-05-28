@@ -7,9 +7,8 @@ import { Button } from "../../atoms/button";
 import { FormTextarea, Form } from "../../Forms";
 import { set } from "idb-keyval";
 import { useNavigate } from "react-router-dom";
-import { navLinks } from "../../../utils";
-
 import styles from "./attemptPage.module.scss";
+import { navLinks } from "../../../utils";
 
 function CurrentQuestion({ question }) {
     const { name, marks, _id: questionId } = question;
@@ -104,16 +103,11 @@ export default function AttemptPage() {
     const [questions, setQuestions] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isFullScreen, setisFullScreen] = useState(true);
-    const [examDuration, setexamDuration] = useState();
-    const [isExamStarted, setisExamStarted] = useState();
+    const [endTime, setendTime] = useState();
+    const navigate = useNavigate();
 
-    let navigate = useNavigate();
-
-    const expiryDate = (end_time = 2) => {
-        setisExamStarted(true);
-
-        return new Date(new Date().setHours(new Date().getHours() + end_time));
-    };
+    const expiryDate = (end_time = 2) =>
+        new Date(new Date().setHours(new Date().getHours() + end_time));
 
     console.log("[ATTEMPTED PAGE] exams", exams);
 
@@ -121,25 +115,10 @@ export default function AttemptPage() {
         exams.map(({ _id, questions, time_limit }) => {
             if (_id === examId) {
                 setQuestions(questions);
-                setexamDuration(time_limit);
+                setendTime(time_limit);
             }
         });
     }, [examId, exams]);
-
-    useEffect(() => {
-        let timeoutID;
-        if (isExamStarted === true) {
-            timeoutID = setTimeout(() => {
-                console.log("[ATTEMPT PAGE] exam started");
-            }, examDuration);
-        }
-
-        return () => {
-            clearTimeout(timeoutID);
-
-            navigate.push(navLinks.home);
-        };
-    }, [isExamStarted, examDuration, navigate]);
 
     function handleCurrentIndex(e) {
         const { name } = e.target;
@@ -187,7 +166,7 @@ export default function AttemptPage() {
 
     useEffect(() => {
         document.onfullscreenchange = handleFullScreenChange;
-    });
+    }, []);
 
     return (
         <section>
@@ -203,14 +182,12 @@ export default function AttemptPage() {
             </section>
 
             <section>
-                <Countdown date={expiryDate(examDuration)} />
-                <Button
-                    onClick={() => {
+                <Countdown
+                    date={expiryDate(endTime)}
+                    onComplete={() => {
                         navigate.push(navLinks.home);
                     }}
-                >
-                    END TEST
-                </Button>
+                />
             </section>
             <section className={styles.attemptPageSection}>
                 {!!questions.length ? (
