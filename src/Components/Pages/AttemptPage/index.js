@@ -204,7 +204,7 @@ export default function AttemptPage() {
                 </article>
             </section>
 
-            <section>
+            <section className={styles.attemptPageCountDownEndTestSection}>
                 <Countdown
                     date={expiryDate(endTime)}
                     onComplete={() => {
